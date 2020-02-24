@@ -1,0 +1,81 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<i-tabs bindchange="handleChange" color="#000" current="{{current}}" iClass="yes_pos">
+    <i-tab key="tab1" title="系统删帖"></i-tab>
+    <i-tab key="tab2" title="{{design.qq_name}}主删帖"></i-tab>
+    <i-tab key="tab3" title="楼主删帖"></i-tab>
+    <i-tab key="tab4" title="自己删帖"></i-tab>
+    <i-tab key="tab5" title="系统打回"></i-tab>
+</i-tabs>
+<view style="width:91%;padding:0px 20px;">
+    <block wx:for="{{info}}" wx:for-index="i_index" wx:key="i_key">
+        <view class="weui-panel__bd" wx:if="{{item.is_reply==3}}">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text"> {{item.study_title==''?item.study_content:item.study_title}}</view>
+                <view style="color:#999;font-size:13px;word-break:break-all;">审核打回：{{item.reject_reason}}</view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">{{item.realm_name}}</view>
+                    <view class="weui-media-box__info__meta">{{item.prove_time}}</view>
+                    <view bindtap="user_mutter" class="weui-media-box__info__meta weui-media-box__info__meta_extra" data-key="{{i_index}}" style="color:#0099CC" wx:if="{{item.is_complaint==0}}">申请恢复</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF9933" wx:if="{{item.is_complaint==1}}">已申诉</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel__bd" wx:if="{{item.is_reply==0}}">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text"> {{item.study_title==''?item.study_content:item.study_title}}</view>
+                <view style="color:#999;font-size:13px;word-break:break-all;">{{item.whether_reason}}</view>
+                <block wx:for="{{item.is_complaint_list}}" wx:for-item="is" wx:key="is_key">
+                    <view style="color:#999;font-size:13px;word-break:break-all;">申诉理由：{{is.tale_content}}</view>
+                    <view style="color:#999;font-size:13px;word-break:break-all;" wx:if="{{is.acceptance_status==1}}">受理回复：{{is.tale_instruct}}</view>
+                </block>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">{{item.realm_name}}</view>
+                    <view class="weui-media-box__info__meta">{{item.whetd_time}}</view>
+                    <view bindtap="user_mutter" class="weui-media-box__info__meta weui-media-box__info__meta_extra" data-key="{{i_index}}" style="color:#0099CC" wx:if="{{item.is_complaint==0}}">申请恢复</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF9933" wx:if="{{item.is_complaint==1}}">已申诉</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel__bd" wx:if="{{item.is_reply==1}}">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">帖子：{{item.study_title==''?item.study_content:item.study_title}}</view>
+                <view style="color:#999;font-size:14px;word-break:break-all;margin-bottom:10px;">回复：{{item.reply_content}}</view>
+                <block wx:for="{{item.is_complaint_list}}" wx:for-item="is" wx:key="is_key">
+                    <view style="color:#999;font-size:13px;word-break:break-all;">申诉理由：{{is.tale_content}}</view>
+                    <view style="color:#999;font-size:13px;word-break:break-all;" wx:if="{{is.acceptance_status==1}}">受理回复：{{is.tale_instruct}}</view>
+                </block>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">{{item.whether_reason}}</view>
+                    <view class="weui-media-box__info__meta">{{item.apter_time}}</view>
+                    <view bindtap="user_mutter" class="weui-media-box__info__meta weui-media-box__info__meta_extra" data-key="{{i_index}}" style="color:#0099CC" wx:if="{{item.is_complaint==0}}">申请恢复</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF9933" wx:if="{{item.is_complaint==1}}">已申诉</view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="classify" style="left:35%;" wx:if="{{info.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:14px;margin-top:5px;">没有被删的帖子</view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{sc_msg}}"></view>
+<view class="modal-dialog" wx:if="{{sc_msg}}">
+    <view class="modal-title" style="font-size:15px;">申诉理由</view>
+    <view class="modal-content">
+        <textarea bindinput="is_sc_text" placeholder="请填写申诉理由" style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+        <view bindtap="do_user_mutter" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

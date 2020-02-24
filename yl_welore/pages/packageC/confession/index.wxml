@@ -1,0 +1,46 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<view style="width:91%;padding:20px;">
+    <view class="weui-panel__bd" wx:for="{{info}}" wx:for-index="i_index" wx:key="i_key">
+        <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">您已被禁言，理由如下</view>
+            <view style="color:#999;font-size:13px;line-height:1.2;">{{item.beget}}</view>
+            <view style="color:#FF3333;font-size:14px;line-height:1.2;margin-top:10px;" wx:if="{{item.refer_time!=0}}">禁言解除时间：{{item.refer_time}}</view>
+            <view style="color:#33CC00;font-size:14px;line-height:1.2;margin-top:10px;" wx:if="{{item.refer_time==0}}">禁言已解除</view>
+            <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">{{item.realm_name}}</view>
+                <view bindtap="user_mutter" class="weui-media-box__info__meta weui-media-box__info__meta_extra" data-id="{{i_index}}" style="color:#0099FF" wx:if="{{item.user_is_mutter==0&&item.refer_time!=0}}">申诉</view>
+                <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF9933" wx:if="{{item.user_is_mutter==1&&item.refer_time!=0}}">已申诉</view>
+            </view>
+            <block wx:for="{{item.user_mutter_list}}" wx:for-item="m" wx:key="u_key">
+                <view style="font-size:14px;line-height:1.2;margin-top:10px;word-break:break-all">申诉理由：{{m.beget}}</view>
+                <view style="font-size:14px;line-height:1.2;margin-top:10px;word-break:break-all" wx:if="{{m.mute_type==2}}">审核回复：{{m.reason_refusal}}</view>
+            </block>
+        </view>
+        <view style="width:100%;height:5px;background-color:#F7F7FA;"></view>
+    </view>
+</view>
+<view class="classify" style="left:35%;" wx:if="{{info.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:14px;margin-top:5px;">您没有被禁言哦~</view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{sc_msg}}"></view>
+<view class="modal-dialog" wx:if="{{sc_msg}}">
+    <view class="modal-title" style="font-size:15px;">申诉理由</view>
+    <view class="modal-content">
+        <textarea bindinput="is_sc_text" placeholder="请填写申诉理由" style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+        <view bindtap="do_user_mutter" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

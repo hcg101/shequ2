@@ -1,0 +1,14 @@
+{
+    "usingComponents": {
+        "i-toast": "../../../dist/toast/index",
+        "i-modal": "../../../dist/modal/index",
+        "i-button": "../../../dist/button/index",
+        "i-load-more": "../../../dist/load-more/index",
+        "i-message": "../../../dist/message/index",
+        "i-tabs": "../../../dist/tabs/index",
+        "i-tab": "../../../dist/tab/index",
+        "i-action-sheet": "../../../dist/action-sheet/index",
+        "i-icon": "../../../dist/icon/index",
+        "i-input-number": "../../../dist/input-number/index"
+    }
+}

@@ -1,0 +1,27 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <form bindreset="formReset" bindsubmit="formSubmit">
+        <view style="padding:30rpx;">
+            <input class="weui-input" maxlength="10" name="real_name" placeholder="填写姓名" style="padding:10px;font-size:14px;width:95%;color:#000;border:1px solid #F6F6F6;;border-radius:6px" value="{{user_info.buyer_name}}" wx:if="{{copyright.receipt_arbor==1}}"></input>
+            <input class="weui-input" name="phone" placeholder="填写联系电话" style="margin-top:20px;padding:10px;font-size:14px;width:95%;color:#000;border:1px solid #F6F6F6;;border-radius:6px" type="number" value="{{user_info.buyer_phone}}" wx:if="{{copyright.receipt_arbor==1}}"></input>
+            <view style="background-color:#ffffff;margin-top:20px;" wx:if="{{copyright.receipt_arbor==1}}">
+                <textarea class="weui-textarea" maxlength="200" name="address" placeholder="填写详细地址" style="height:110px;padding:10px;width:95%;border:1px #F6F6F6 solid;border-radius:6px;" value="{{user_info.buyer_address}}"></textarea>
+            </view>
+            <view style="background-color:#ffffff;margin-top:20px;">
+                <textarea class="weui-textarea" maxlength="140" name="remarks" placeholder="填写备注" style="height:110px;padding:10px;width:95%;border:1px #F6F6F6 solid;border-radius:6px;" value=""></textarea>
+            </view>
+            <button class="add_submit" disabled="{{is_submit}}" formType="submit" style="width:150px;margin-bottom:20px;margin-top:20px;">确定</button>
+        </view>
+    </form>
+</view>
+<i-toast id="toast"></i-toast>
+<wxs module="filters" src="tofix.wxs" />

@@ -1,0 +1,40 @@
+<view class="nav-wrap" style="">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">我的资料</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="padding:30rpx;overflow:hidden;">
+    <view style="text-align:center;position:relative;padding-bottom:20px;">
+        <image bindtap="previewOneImage" src="../../../style/icon/xiangji.png" style="width:40px;height:40px;position:absolute;left:54%;top:70px;"></image>
+        <image src="{{img}}" style="width:100px;height:100px;border-radius:50%;"></image>
+    </view>
+    <i-input bind:change="get_input" disabled="{{info.is_nick_name}}" maxlength="15" title="昵称" value="{{nick_name}}"></i-input>
+    <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">1. 昵称不超过
+    <text style="color:#E05B2F">14</text>个字</view>
+    <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">2. 昵称可以加emoji小表情</view>
+    <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">3. 每
+    <text style="color:#E05B2F">90天</text>可以修改一次昵称，一定要谨慎哦</view>
+    <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">4.
+    <text style="color:#E05B2F">会员</text>最短只用等待
+    <text style="color:#E05B2F">30天</text>就可以改昵称</view>
+    <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;" wx:if="{{info.is_nick_name}}">5.
+    <text style="color:#E05B2F">{{info.is_nick_name_end}}后</text>可以修改昵称
+  </view>
+    <i-panel title="性别">
+        <i-radio-group bindchange="handleFruitChange" current="{{current}}">
+            <i-radio color="#2D8CF0" position="right" value="男"></i-radio>
+            <i-radio color="#FF99CC" position="right" value="女"></i-radio>
+        </i-radio-group>
+    </i-panel>
+    <i-panel title="个人签名">
+        <textarea autoHeight bindinput="get_text" maxlength="140" placeholder="个性签名140个字" style="min-height:4em;padding:20px;width:90%;" value="{{autograph}}"></textarea>
+    </i-panel>
+    <button bindtap="edit_submit" class="add_submit" style="width:150px;height:45px;line-height:45px;">提交保存</button>
+</view>
+<i-toast id="toast"></i-toast>

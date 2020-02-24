@@ -1,0 +1,10 @@
+<view class="i-class i-tab-bar-item">
+    <i-badge count="{{dot?0:count}}" dot="{{dot}}">
+        <view style="{{key=='add'?'position:relative;bottom:12px;z-index:99;':''}}">
+            <i-icon color="{{current?currentColor:''}}" iClass="i-tab-bar-item-icon {{current?'item-index--i-tab-bar-item-icon-current':''}}" size="22" type="{{current?currentIcon:icon}}" wx:if="{{icon||currentIcon}}"></i-icon>
+            <image class="i-tab-bar-item-img" src="{{current?currentImg:img}}" style="{{key=='add'?'width:53px;height:53px;margin:0 auto;':'margin:0 auto;'}}" wx:else></image>
+            <view class="i-tab-bar-item-title {{current?'i-tab-bar-item-title-current':''}}" style="color: {{currentColor}}" wx:if="{{current&&currentColor}}">{{title}}</view>
+            <view class="i-tab-bar-item-title {{current?'i-tab-bar-item-title-current':''}}" style="color:{{current?yes_color:color}}" wx:else>{{title}}</view>
+        </view>
+    </i-badge>
+</view>

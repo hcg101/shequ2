@@ -1,0 +1,52 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <view style="margin:20px;font-size:13px;" wx:for="{{user_list}}" wx:key="m_key">
+        <view style="float:left;text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.con_user_id}}">
+                <image src="{{item.user_head_sculpture}}" style="width:45px;height:45px;border-radius:50%;"></image>
+            </navigator>
+        </view>
+        <view style="float:left;margin-left:11px;margin-top:17px;">{{item.user_nick_name}}</view>
+        <view bindtap="envite_sulord" data-id="{{item.id}}" data-key="2" style="float:right;margin-left:11px;margin-top:14px;color:#fff;background-color:red;padding:5px;border-radius:5px;">拒绝</view>
+        <view bindtap="envite_sulord" data-id="{{item.id}}" data-key="1" style="float:right;margin-left:11px;margin-top:14px;color:#ffffff;background-color:#33CC66;padding:5px;border-radius:5px;">同意</view>
+        <view style="clear:both;height:0"></view>
+        <view style="margin-left:11px;" wx:if="{{item.reason}}">
+            <text style="color:#000">申请理由：{{item.reason}}</text>
+        </view>
+        <view style="margin-left:11px;">
+            <text style="color:#000">申请时间：{{item.sult_time}}</text>
+        </view>
+    </view>
+</view>
+<view class="classify" style="left:34%;" wx:if="{{user_list.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:13px;margin-top:5px;color:#000;">还没有任何人申请</view>
+</view>
+<i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+<i-toast id="toast"></i-toast>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{envite}}"></view>
+<view class="modal-dialog" wx:if="{{envite}}">
+    <view class="modal-title">操作确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:14px;">
+      确定要
+      <text style="color:#33CC66" wx:if="{{data_key==1}}">通过申请</text>
+            <text style="color:red" wx:if="{{data_key==2}}">拒绝申请</text>吗？
+    </view>
+    </view>
+    <view class="modal-footer" style="font-size:14px;">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="add_envite_sulord" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>

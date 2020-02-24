@@ -1,0 +1,97 @@
+{
+  "pages": [
+    "yl_welore/pages/index/index",
+    "yl_welore/pages/user/index",
+    "yl_welore/pages/author/index",
+    "yl_welore/pages/inspect/index",
+    "yl_welore/pages/circle/index",
+    "yl_welore/pages/square/index",
+    "yl_welore/pages/black_house/index",
+    "yl_welore/pages/shell_mall/index",
+    "yl_welore/pages/web/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#1296db"
+  },
+  "tabBar": {
+    "color": "white",
+    "borderStyle": "white",
+    "backgroundColor": "white",
+    "list": [
+      {
+        "pagePath": "yl_welore/pages/index/index",
+        "text": ""
+      },
+      {
+        "pagePath": "yl_welore/pages/circle/index",
+        "text": ""
+      },
+      {
+        "pagePath": "yl_welore/pages/shell_mall/index",
+        "text": ""
+      },
+      {
+        "pagePath": "yl_welore/pages/user/index",
+        "text": ""
+      }
+    ]
+  },
+  "subPackages": [
+    {
+      "root": "yl_welore/pages/packageA",
+      "pages": [
+        "add/index",
+        "canvas/index",
+        "circle_info/index",
+        "article/index",
+        "gift_received/index",
+        "circle_master/index",
+        "apply_admin/index",
+        "user_smail/index",
+        "user_banned/index",
+        "good_info/index",
+        "good_address/index",
+        "user_order/index",
+        "order_info/index",
+        "territory_interest/index"
+      ]
+    },
+    {
+      "root": "yl_welore/pages/packageB",
+      "pages": [
+        "user_vip/index",
+        "user_trailing/index",
+        "set_territory/index",
+        "search/index",
+        "my_home/index",
+        "edit_user_info/index",
+        "user_follow/index",
+        "circle_info/index",
+        "user_guard/index"
+      ]
+    },
+    {
+      "root": "yl_welore/pages/packageC",
+      "pages": [
+        "user_collection/index",
+        "user_details/index",
+        "service_centre/index",
+        "help_info/index",
+        "confession/index",
+        "about_us/index",
+        "delete_posts/index",
+        "user_report/index",
+        "notice/index",
+        "post_notice/index",
+        "withdrawal/index",
+        "withdrawal_list/index",
+        "user_invitation/index"
+      ]
+    }
+  ],
+  "navigateToMiniProgramAppIdList": [],
+  "sitemapLocation": "sitemap.json"
+}

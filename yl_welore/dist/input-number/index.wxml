@@ -1,0 +1,5 @@
+<view class="i-class i-input-number i-input-number-size-{{size}}">
+    <view bindtap="handleMinus" class="i-input-number-minus {{value<=min?'i-input-number-disabled':''}}" data-disabled="{{value<=min}}">-</view>
+    <input bindblur="handleBlur" class="i-input-number-text {{min>=max?'i-input-number-disabled':''}}" disabled="{{min>=max}}" type="number" value="{{value}}"></input>
+    <view bindtap="handlePlus" class="i-input-number-plus {{value>=max?'i-input-number-disabled':''}}" data-disabled="{{value>=max}}">+</view>
+</view>

@@ -1,0 +1,33 @@
+<view class="nav-wrap" style="">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">我管理的{{design.landgrave}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="padding:30rpx;">
+    <view style="margin:20px 0px;" wx:for="{{user_list}}" wx:key="u_key">
+        <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.id}}">
+            <image src="{{item.realm_icon}}" style="width:50px;height:50px;float:left;border-radius:50%;"></image>
+            <view style="float:left;margin-top:13px;margin-left:20px;font-size:14px;">{{item.realm_name}}</view>
+        </navigator>
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;float:right;top:-5px;">
+            <image src="../../../style/icon/aq3.png" style="width: 70px; height: 70px; display: block;border-radius:50%;position:absolute;left:-9px;top:-3px;" wx:if="{{item.is_type=='xiao'}}"></image>
+            <image src="../../../style/icon/aq4.png" style="width: 70px; height: 70px; display: block;border-radius:50%;position:absolute;left:-9px;top:-3px;" wx:if="{{item.is_type=='da'}}"></image>
+            <text style="letter-spacing:4px;position:absolute;font-size:10px;color:#ffffff;bottom:-4px;right:13px;" wx:if="{{item.is_type=='da'}}">{{design.qq_name}}主</text>
+            <image src="{{user_info.user_head_sculpture}}" style="width: 55px; height: 55px; display: block;border-radius:50%;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+</view>
+<view class="classify" style="left:34%;" wx:if="{{user_list.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:13px;margin-top:5px;color:#000;">还没有管理任何{{design.landgrave}}</view>
+</view>
+<i-toast id="toast"></i-toast>

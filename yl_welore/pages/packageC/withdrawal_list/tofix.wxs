@@ -1,0 +1,9 @@
+var filters = ({
+    toFix: (function(value) {
+        var na = value.toFixed(2);
+        return (na)
+    }),
+});
+module.exports = ({
+    toFix: filters.toFix,
+});

@@ -1,0 +1,147 @@
+<view class="nav-wrap" style="background-image: linear-gradient(to right, #434343 0%, black 100%);">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/w_back.png"></image>
+            </view>
+        </view>
+    </view>
+    <view style="width:100%;height:120px;">
+        <view class="weui-flex">
+            <view class="weui-flex__item">
+                <view class="placeholder">
+                    <view style="float:left;width:440rpx;text-align:left;position:relative;left:20px;top:14px;">
+                        <image src="{{user_info.user_head_sculpture}}" style="width:110rpx;height:110rpx;border-radius:100rpx;float:left;"></image>
+                        <view class="course-name" style="width:100px;color:#ffffff;position:relative;left:40rpx;font-size:34rpx;">{{user_info.user_nick_name}}
+              <image src="../../../style/icon/vip.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{user_info.is_vip==1}}"></image>
+                            <image src="../../../style/icon/novip.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{user_info.is_vip==0}}"></image>
+                        </view>
+                        <view style="color:#CDC9C9;position:relative;top:6px;left:40rpx;font-size:24rpx;">{{user_info.vip_end_time==0?'您还不是会员':user_info.vip_end_time}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-flex__item">
+                <view class="placeholder">
+                    <view style="float:left;text-align:left;position:relative;left:12px;top:13px;line-height:32px;">
+                        <view style="color:#ffffff;font-size:25px;float:left;">{{user_info.conch}}</view>
+                        <image src="../../../style/icon/jinbi.png" style="width:30px;height:30px;border-radius:100rpx;margin-left:10px;"></image>
+                        <view bindtap="get_pay" style="width:60px;border-radius:50px;text-align:center;color:#fff;background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);font-size:12px;height:26px;line-height:26px;margin-left:20px;" wx:if="{{copyright.recharge_arbor==1}}">
+              充值
+            </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="padding-top:18px;">
+    <scroll-view scrollX="true" style="white-space: nowrap;width: 100%;">
+        <view bindtap="get_pay_index" class="liwu_col {{pay_index==p_index?'select':''}}" data-index="{{p_index}}" wx:for="{{pay_list}}" wx:for-index="p_index" wx:key="p_key">
+            <view style="font-size:10px;background-color:#000;width:35px;position:absolute;top:-11px;right:-6px;;background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);padding:4px;border-bottom-left-radius:10px;border-top-right-radius:10px;text-align:center;color:#ffffff;" wx:if="{{p_index==0}}">{{item.first_discount==1?item.discount_scale:''}}{{item.first_discount==1?'折':'推荐'}}</view>
+            <view style="font-size:14px;margin-top:10px;font-weight:600;">{{item.hono_name}}</view>
+            <view style="font-size:30px;color:#F3CB5A;">
+                <text style="font-size:14px;">￥</text>
+                <text style="" wx:if="{{item.first_discount==1}}">{{item.avg}}</text>
+                <text style="" wx:if="{{item.first_discount==0}}">{{item.hono_price}}</text>
+            </view>
+            <view style="font-size:12px;color:#ADAAA6;" wx:if="{{item.first_discount==0}}">{{item.hono_price}}{{design.currency}}/{{item.hono_name}}</view>
+            <view style="font-size:12px;color:#ADAAA6;text-decoration:line-through" wx:if="{{item.first_discount==1}}">{{item.hono_price}}{{design.currency}}/{{item.hono_name}}</view>
+        </view>
+    </scroll-view>
+</view>
+<view bindtap="pay_check" style="height:50px;width:90%;margin:0 auto;margin-top:20px;border-radius:50px;text-align:center;color:#fff;line-height:50px;background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
+  以{{pay_info.first_discount==1?pay_info.avg:pay_info.hono_price}}{{design.currency}}开通
+</view>
+<view style="margin:20px;">
+    <view style="text-align: center;font-size: 66px;color: #fcef23;letter-spacing: 13px;box-sizing: border-box;position:relative;">
+        <view style="box-sizing: border-box;">
+            <text style="box-sizing: border-box;margin-left:13px;">会员</text>
+        </view>
+        <view style="position:absolute;top:42px;width: 100%;vertical-align: top;background-color: #feffff;box-sizing: border-box;">
+            <view style="margin-right: 0%;margin-left: 0%;box-sizing: border-box;">
+                <view style="text-align: center;font-size: 15px;color: #0b0b0b;letter-spacing: 5px;box-sizing: border-box;">
+                    <view style="box-sizing: border-box;">
+                        <text style="box-sizing: border-box;margin-left:13px;font-weight:600;">会员权益</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/vip.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">专属标注</view>
+            <view style="font-size:12px;color:#ADAAA6;">彰显尊贵权益</view>
+        </view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/zhekou.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">折上折</view>
+            <view style="font-size:12px;color:#ADAAA6;">商品折扣更优惠</view>
+        </view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/jifen.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">{{design.confer}}反享</view>
+            <view style="font-size:12px;color:#ADAAA6;">消费返还更多{{design.confer}}</view>
+        </view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/shop.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">专属商品</view>
+            <view style="font-size:12px;color:#ADAAA6;">会员专属商品</view>
+        </view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/ic_category_t5.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">颜色标题</view>
+            <view style="font-size:12px;color:#ADAAA6;">会员多标题颜色</view>
+        </view>
+        <view class="user_col">
+            <view style="font-size:14px;margin-top:10px;">
+                <image src="../../../style/icon/fudai.png" style="width:35px;height:35px;vertical-align:sub;"></image>
+            </view>
+            <view style="font-size:14px;color:#F3CB5A;">专属福利</view>
+            <view style="font-size:12px;color:#ADAAA6;">活动好处惊喜不断</view>
+        </view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>
+<view animation="{{animationPay}}" style="width:100%;height:230px;background-color:#f9f9f9;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{pay}}">
+    <view style="text-align:center;">
+        <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">充值{{design.currency}}</view>
+        <image bindtap="no_pay" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <scroll-view scrollX="true" style="white-space: nowrap;width: 100%;">
+        <view bindtap="get_pay_money" class="liwu_col {{money_index==m_index?'select':''}}" data-index="{{m_index}}" style="height:5.5em;border-radius:0;" wx:for="{{pay_money}}" wx:for-index="m_index" wx:key="m_key">
+            <view style="font-size:14px;margin-top:10px;font-weight:600;">{{item.money}}{{design.currency}}</view>
+            <view style="font-size:30px;color:#F3CB5A;">
+                <text style="font-size:14px;">￥</text>
+                <text style="">{{item.money}}</text>
+            </view>
+        </view>
+    </scroll-view>
+    <button bindtap="pay_submit" style="background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);color:#fff;border-radius: 2rem;box-shadow:-3px 5px  10rpx 5rpx;width:150px;margin-top:15px;">充值</button>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{visible_bei}}"></view>
+<view class="modal-dialog" style="border-radius:5px;" wx:if="{{visible_bei}}">
+    <view class="modal-title" style="font-size:15px;">购买确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:15px;">
+      确认以{{pay_info.first_discount==1?pay_info.avg:pay_info.hono_price}}{{design.currency}}开通吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="beiClose" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+        <view bindtap="beiOk" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+    </view>
+</view>

@@ -1,0 +1,15 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<view style="width:91%;padding:20px;">
+    <view class="page__hd">
+        <view class="page__title" style="font-size:20px;font-weight:700;">{{info.trouble}}</view>
+        <text class="page__desc" style="margin-top:10px;">{{info.answer}}</text>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

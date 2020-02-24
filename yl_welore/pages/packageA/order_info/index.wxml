@@ -1,0 +1,90 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <view style="padding:5px;">
+        <view style="background-color:#fff;border-radius:15px;min-height:100px;padding:20px 10px 10px 10px;margin:10px;">
+            <view style="text-align:center;position:relative;">
+                <image mode="widthFix" src="../../../style/icon/image_strategy1.png" style="width:300px;"></image>
+                <view style="position:absolute;top:14%;left:43%;color:#fff;">
+                    <text wx:if="{{order_info.status==0}}">待发货</text>
+                    <text wx:if="{{order_info.status==1}}">已发货</text>
+                    <text wx:if="{{order_info.status==2}}">申请退款</text>
+                    <text wx:if="{{order_info.status==3}}">已退款</text>
+                    <text wx:if="{{order_info.status==4}}">已完成</text>
+                </view>
+            </view>
+            <image mode="aspectFit" src="{{order_info.product_img}}" style="width:5em;height:5em;margin:15px 10px;float:left;"></image>
+            <view class="course-name" style="float:left;margin-top:26px;width:65%;">{{order_info.product_name}}</view>
+            <view style="margin-top:10px;float:left;font-size:12px;color:#999999;width:65%;">
+        购买时间：{{order_info.buy_time}}
+      </view>
+            <view style="clear:both;height:0"></view>
+            <view style="float:left;margin-left:20px;font-size:13px;color:#999">商品价格:</view>
+            <view style="float:right;margin-right:20px;font-size:13px;color:#999">{{order_info.product_price}}({{design.currency}})</view>
+            <view style="clear:both;height:0"></view>
+            <view style="float:left;margin-left:20px;font-size:13px;color:#999" wx:if="{{order_info.product_discount<1}}">折扣:
+      </view>
+            <view style="float:right;margin-right:20px;font-size:13px;color:#999" wx:if="{{order_info.product_discount<1}}">
+        {{order_info.product_discount*100}}
+      </view>
+            <view style="clear:both;height:0"></view>
+            <view style="float:left;margin-left:20px;font-size:13px;">实付款:
+      </view>
+            <view style="float:right;margin-right:20px;font-size:13px;color:#EB5C28">
+        {{order_info.actual_price}}({{design.currency}})
+      </view>
+            <view style="clear:both;height:0"></view>
+            <view style="float:left;margin-left:20px;font-size:13px;">赠送{{design.confer}}:
+      </view>
+            <view style="float:right;margin-right:20px;font-size:13px;color:#00CC66">
+        {{order_info.product_rebate}}
+      </view>
+            <view style="clear:both;height:0"></view>
+            <view style="font-size:12px;border-left:solid;margin-left:10px;margin-top:20px;padding-left:7px;line-height:14px;">
+        订单信息
+      </view>
+            <view style="font-size:12px;margin-left:15px;margin-top:20px">
+                <view style="margin:10px;">
+          订单编号：　　　　{{order_info.order_number}}
+          <text bindtap="copyBtn" data-no="{{order_info.order_number}}" style="float:right;color:#EB5C28;">点击复制</text>
+                </view>
+                <view style="margin:10px;">
+          创建时间：　　　　{{order_info.buy_time}}
+        </view>
+                <view style="margin:10px;" wx:if="{{order_info.status==1||order_info.status==4}}">
+          发货时间：　　　　{{order_info.ship_time}}
+        </view>
+                <view style="margin:10px;">
+          我的备注：　　　　{{order_info.remark}}
+        </view>
+            </view>
+            <view style="font-size:12px;border-left:solid;margin-left:10px;margin-top:20px;padding-left:7px;line-height:14px;">
+        发货信息
+      </view>
+            <view style="font-size:12px;margin-left:15px;margin-top:20px">
+                <view style="margin:10px 10px 0px 10px;">
+          收货人：　　　　{{order_info.buyer_name}}
+        </view>
+                <view style="margin:10px 10px 0px 10px;">
+          电话：　　　　　{{order_info.buyer_phone}}
+        </view>
+                <view style="margin:10px 10px 0px 10px;">
+          收货地址：　　　{{order_info.buyer_address}}
+        </view>
+                <view style="margin:10px;">
+          物流单号/兑换码：{{order_info.shipment==null?'无':order_info.shipment}}
+          <text bindtap="copyBtn" data-no="{{order_info.shipment}}" style="float:right;color:#EB5C28;" wx:if="{{order_info.shipment!=null}}">点击复制</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

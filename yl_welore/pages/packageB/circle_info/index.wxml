@@ -1,0 +1,150 @@
+<view class="nav-wrap" style="">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{design.landgrave}}资料</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="padding:30rpx;position:relative;">
+    <view style="text-align:center;position:relative;">
+        <image src="{{info.realm_icon}}" style="width:100px;height:100px;border-radius:50%;"></image>
+    </view>
+    <view style="padding-right:0px;font-size:14px;color:#000;text-align:center;">{{info.realm_name}}</view>
+    <view style="padding-right:0px;font-size:13px;color:#999;text-align:center;">{{info.realm_synopsis}}</view>
+    <view bindtap="ts_admin" data-id="{{id}}" data-qq="" data-type="0" style="font-size:24rpx;color:#FF9732;position:absolute;right:8%;top:37%;" wx:if="{{info.this_da_qq==0&&info.this_xiao_qq==0}}">投诉{{design.landgrave}}</view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageA/user_banned/index?id={{id}}">
+        <view data-id="{{id}}" data-qq="" data-type="0" style="font-size:13px;color:#fff;position:absolute;right:8%;top:22%;background-color:#FF9732;border-radius:20px;padding:3px 10px;" wx:if="{{info.this_da_qq==1||info.this_xiao_qq==1}}">禁言列表</view>
+    </navigator>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageA/territory_interest/index?id={{id}}" wx:if="{{info.attention==1}}">
+        <view style="font-size:24rpx;color:#ffffff;position:absolute;right:8%;top:46%;background-color:#33CC66;border-radius:20px;padding:3px 10px;" wx:if="{{info.this_da_qq==1||info.this_xiao_qq==1}}">申请列表</view>
+    </navigator>
+</view>
+<view style="width:100%;text-align:center;">
+    <text bindtap="open_atence" style="background-color:#000;color:#fff;padding:5px 10px;border-radius:5px;" wx:if="{{info.attention==1&&info.atence==0&&info.this_da_qq==1}}">开启暗号</text>
+    <text bindtap="open_atence" style="background-color:#CC3333;color:#fff;padding:5px 10px;border-radius:5px;" wx:if="{{info.attention==1&&info.atence==1&&info.this_da_qq==1}}">关闭暗号</text>
+</view>
+<block wx:if="{{info.atence==1&&info.this_da_qq==1}}">
+    <view style="text-align:center;width:80%;margin:0 auto;height:60px;line-height:60px;">
+        <text style="font-size:25px;letter-spacing:0.5px;color:#00CC33">{{info.atcipher}}</text>
+    </view>
+    <view style="text-align:center;width:80%;margin:0 auto;">
+        <text bindtap="copyBtn" data-no="{{info.atcipher}}" style="font-size:15px;color:#fff;background-color:#666666;padding:5px;border-radius:3px;">复制</text>
+        <text bindtap="set_anhao" style="font-size:15px;margin-left:20px;color:#ffffff;background-color:#FF9933;padding:5px;border-radius:3px;">更换</text>
+    </view>
+</block>
+<view style="padding:30rpx;">
+    <view>
+        <image src="../../../style/icon/quanzhu.png" style="width:20px;height:20px;float:left;"></image>
+        <view style="float:left;font-size:14px;margin-left:10px;">{{design.qq_name}}主</view>
+        <image class="xwcms" src="../../../style/icon/fanhui.png" style="width:15px;height:15px;float:right;opacity:0.4;margin-top:4px;"></image>
+        <view bindtap="da_mod" style="float:right;font-size:14px;margin-right:10px;">{{design.qq_name}}主权益与规范</view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell" style="margin-top:20px;" wx:for="{{da_qq}}" wx:key="d_key">
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.id}}">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <image src="../../../style/icon/aq4.png" style="width: 70px; height: 70px; display: block;border-radius:50rpx;position:absolute;left:-7px;top:-3px;" wx:if="{{da_qq.length!=0}}"></image>
+                <text style="letter-spacing:4px;position:absolute;font-size:10px;color:#ffffff;bottom:-4px;right:11px;">{{design.qq_name}}主</text>
+                <image src="{{item.user_head_sculpture}}" style="width: 55px; height: 55px; display: block;border-radius:50rpx;"></image>
+            </view>
+        </navigator>
+        <view class="weui-cell__bd" style="margin-left:10px;">
+            <view class="text_num" style="font-size:24rpx;width:170px;">{{item.user_nick_name}}</view>
+            <view class="text_num" style="font-size: 13px;color: #888888;width:170px;">{{item.autograph}}</view>
+        </view>
+        <view bindtap="ts_admin" data-id="{{item.id}}" data-qq="0" data-type="1" style="font-size:24rpx;color:#FF9732;" wx:if="{{da_qq.length!=0&&item.id!=uid}}">投诉{{design.qq_name}}主</view>
+    </view>
+    <view bindtap="shenqing_da_qq" data-key="da" style="font-size:13px;background-color:#03C900;float:right;margin:20px 10px;border-radius:20px;padding:4px 10px;color:#ffffff;" wx:if="{{da_qq.length<3&&info.this_da_qq==0}}">申请{{design.qq_name}}主</view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="padding:30rpx;">
+    <view>
+        <image src="../../../style/icon/guanliyuan.png" style="width:20px;height:20px;float:left;"></image>
+        <view style="float:left;font-size:14px;margin-left:10px;">管理员</view>
+        <image class="xwcms" src="../../../style/icon/fanhui.png" style="width:15px;height:15px;float:right;opacity:0.4;margin-top:4px;"></image>
+        <view bindtap="xiao_mod" style="float:right;font-size:14px;margin-right:10px;">管理员权益与规范</view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell" style="margin-top:20px;" wx:for="{{xiao_qq}}" wx:key="x_key">
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.id}}">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <image src="../../../style/icon/aq3.png" style="width: 70px; height: 70px; display: block;border-radius:50rpx;position:absolute;left:-7px;top:-3px;"></image>
+                <image src="{{item.user_head_sculpture}}" style="width: 55px; height: 55px; display: block;border-radius:50rpx;"></image>
+            </view>
+        </navigator>
+        <view class="weui-cell__bd" style="margin-left:10px;">
+            <view class="text_num" style="font-size:24rpx;width:170px;">{{item.user_nick_name}}</view>
+            <view class="text_num" style="font-size: 13px;color: #888888;width:170px;">{{item.autograph}}</view>
+        </view>
+        <view bindtap="ts_admin" data-id="{{item.id}}" data-qq="1" data-type="1" style="font-size:24rpx;color:#FF9732;" wx:if="{{item.id!=uid&&info.this_da_qq==0&&info.this_xiao_qq==0}}">投诉管理员</view>
+    </view>
+    <view bindtap="shenqing_da_qq" data-key="xiao" style="background-color:#03C900;font-size:24rpx;color:#ffffff;float:right;margin-top:40px;margin-right:5px;border-radius:20px;padding:4px 10px;" wx:if="{{xiao_qq.length<10&&da_qq.length>0&&info.this_xiao_qq==0&&info.this_da_qq==0}}">申请管理员</view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageA/apply_admin/index?id={{id}}">
+        <view style="background-color:#03C900;font-size:24rpx;color:#ffffff;float:right;margin-top:40px;margin-right:5px;border-radius:20px;padding:4px 10px;" wx:if="{{xiao_qq.length<10&&da_qq.length>0&&info.this_xiao_qq==0&&info.this_da_qq==1}}">查看申请列表</view>
+    </navigator>
+</view>
+<view style="height:100px;width:100%;"></view>
+<view animation="{{animationJbData}}" style="width:100%;height:230px;background-color:#F7F7F7;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{shenqing}}">
+    <view style="text-align:center;">
+        <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">申请理由</view>
+        <image bindtap="no_shenqing_da_qq" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell__bd" style="margin:20px;background-color:#ffffff;border-radius:6px;padding:10px;">
+        <textarea autoHeight="true" bindinput="get_shenqing_text" class="weui-textarea" maxlength="300" placeholder="请说明申请理由" style="min-height:4em;" value=""></textarea>
+    </view>
+    <button bindtap="shenqing_submit" style="background: #ffffff;color:#666666;border-radius: 2rem;border: 1px #666666 solid;box-shadow:-3px 5px  10rpx 5rpx#666666;width:150px;">提交申请</button>
+</view>
+<view animation="{{animationJbData}}" style="width:100%;height:230px;background-color:#F7F7F7;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{tousu}}">
+    <view style="text-align:center;">
+        <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">投诉理由</view>
+        <image bindtap="no_shenqing_da_qq" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell__bd" style="margin:20px;background-color:#ffffff;border-radius:6px;padding:10px;">
+        <textarea autoHeight="true" bindinput="get_tc_text" class="weui-textarea" maxlength="300" placeholder="请说明投诉理由" style="min-height:4em;" value=""></textarea>
+    </view>
+    <button bindtap="tc_submit" style="background: #ffffff;color:#666666;border-radius: 2rem;border: 1px #666666 solid;box-shadow:-3px 5px  10rpx 5rpx#666666;width:150px;">提交投诉</button>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{da_mod}}"></view>
+<view class="modal-dialog" wx:if="{{da_mod}}">
+    <view class="modal-title">{{design.qq_name}}主权益与规范</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:14px;">
+      {{design.qq_name}}主可以在任职的{{design.landgrave}}里管理{{design.landgrave}}内容和用户,还有闪亮亮的独家{{design.qq_name}}主标识哦。{{design.qq_name}}主团队由{{design.qq_name}}主和管理员构成。由{{design.qq_name}}主建立,并为{{design.landgrave}}的发展和秩序负责。{{design.qq_name}}主最多三位。
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">关闭</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{xiao_mod}}"></view>
+<view class="modal-dialog" wx:if="{{xiao_mod}}">
+    <view class="modal-title">管理员权益与规范</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:14px;">
+      管理员由{{design.qq_name}}主设置,{{design.qq_name}}主有权取消其身份。作为{{design.qq_name}}主团队的一份子,管理员拥有{{design.landgrave}}内:删除、置顶帖子等权限、酷炫的标识。管理员最多十位。
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">关闭</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{anhao_mode}}"></view>
+<view class="modal-dialog" style="background:#ffffff;border-radius:10px;top:35%;" wx:if="{{anhao_mode}}">
+    <view class="modal-title">自动/手动生成暗号</view>
+    <view class="modal-content">
+        <input bindinput="get_ah_text" style="font-size:20px;margin-top:10px;padding:10px;text-align:center;border-radius:10px;border:1px solid #F6F8F8;" value="{{this_atcipher}}"></input>
+        <view bindtap="get_ah_random" style="text-align:center;margin-top:20px;margin-bottom:10px;color:#663399">
+            <i-icon size="20" type="refresh"></i-icon>随机生成</view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="width:50%;font-size:15px">关闭</view>
+        <view bindtap="update_ah" data-status="confirm" style="font-size:15px;width: 50%;color: #CC3333;text-align: center;">确定</view>
+    </view>
+</view>

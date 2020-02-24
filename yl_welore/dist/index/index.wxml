@@ -1,0 +1,27 @@
+<view class="i-index i-class">
+    <scroll-view scrollY bindscroll="handlerScroll" scrollTop="{{scrollTop}}" style="{{parse.setScrollStyle(height)}}">
+        <slot></slot>
+        <view catchtouchend="handlerTouchEnd" catchtouchmove="handlerTouchMove" catchtouchstart="handlerTouchMove" class="i-index-fixed">
+            <view catchtap="handlerFixedTap" class="i-index-fixed-item" data-index="{{index}}" wx:for="{{fixedData}}" wx:key="{{index}}">
+                {{item}}
+            </view>
+        </view>
+        <view class="i-index-tooltip" style="{{isTouches?'display:block':'display:none'}}">{{currentName}}</view>
+    </scroll-view>
+</view>
+<wxs module="parse">
+module.exports = ({
+    setScrollStyle: (function(height) {
+        var units = ['%', 'px', 'rem', 'rpx', 'em', 'rem'];
+        var hasUnits = false;
+        for (var i = 0; i < units.length; i++) {
+            var u = units[((nt_0 = (i), null == nt_0 ? undefined : 'number' === typeof nt_0 ? nt_0 : "" + nt_0))];
+            if (height.indexOf(u) > -1) {
+                hasUnits = true;
+                break
+            }
+        };
+        return ('height:' + (hasUnits ? height : height + 'px'))
+    }),
+});
+</wxs>

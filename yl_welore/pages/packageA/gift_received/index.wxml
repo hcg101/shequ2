@@ -1,0 +1,37 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <view style="margin:20px;font-size:13px;" wx:for="{{my_list}}" wx:key="m_key">
+        <view style="float:left;text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.con_user_id}}">
+                <image src="{{item.user_head_sculpture}}" style="width:45px;height:45px;border-radius:50%;"></image>
+            </navigator>
+        </view>
+        <view style="float:left;margin-left:11px;">{{item.user_nick_name}}</view>
+        <view style="float:left;position:relative;width:85%;">
+            <image mode="scaleToFill" src="../../../style/icon/live_bg_live_banner_gift.png" style="width:270px;height:40px;"></image>
+            <view style="position:absolute;top:11px;left:15px;">
+                <text style="color:#ffffff">{{item.bute_time}}</text>
+                <text style="color:#FFD020;margin-left:20px;">赠送您 </text>
+                <text style="color:#FFD020;">{{item.bute_name}}</text>
+            </view>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+</view>
+<view class="classify" style="left:34%;" wx:if="{{my_list.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:13px;margin-top:5px;color:#000;">还没有任何人送礼</view>
+</view>
+<i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+<i-toast id="toast"></i-toast>

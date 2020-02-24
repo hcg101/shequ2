@@ -1,0 +1,71 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <swiper autoplay="true" duration="1000" indicatorActiveColor="#ffffff" indicatorDots="true" interval="5000" style="height:260px;width:100%;">
+        <swiper-item wx:for="{{good_info.product_img}}" wx:key="p_key">
+            <image mode="aspectFit" src="{{item}}" style="height:260px;width:100%;"></image>
+        </swiper-item>
+    </swiper>
+</view>
+<view style="margin:20px;">
+    <view style="font-size:15px;">
+        <image mode="widthFix" src="../../../style/icon/boi.png" style="width:35px;float:left;margin-right:10px;" wx:if="{{good_info.noble_exclusive}}"></image>
+        <view style="border-radius:5px;padding:1px 10px;font-size:12px;float:left;margin-right:10px;color:#fff;background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);" wx:if="{{good_info.open_discount==1}}">
+      会员{{good_info.noble_discount*10}}折
+    </view>
+        <text>{{good_info.product_name}}</text>
+        <view style="font-size:13px;color:#999999;margin-top:5px;">
+      {{good_info.product_synopsis}}
+    </view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view wx:if="{{good_info.is_vip==1}}">
+        <image mode="widthFix" src="../../../style/icon/jinbi.png" style="width:25px;vertical-align:sub;"></image>
+        <text style="font-size:30px;color:#E9606E;margin-left:5px;" wx:if="{{good_info.open_discount==1}}">{{filters.toFix(good_info.product_price*good_info.noble_discount)}}</text>
+        <text style="font-size:30px;color:#E9606E;margin-left:5px;" wx:if="{{good_info.open_discount==0}}">{{good_info.product_price}}</text>
+        <text style="margin-left:10px;text-decoration:line-through;" wx:if="{{good_info.open_discount==1}}">{{good_info.product_price}}({{design.currency}})</text>
+    </view>
+    <view wx:if="{{good_info.is_vip==0}}">
+        <image mode="widthFix" src="../../../style/icon/jinbi.png" style="width:25px;vertical-align:sub;"></image>
+        <text style="font-size:30px;color:#E9606E;margin-left:5px;" wx:if="{{good_info.open_discount==1}}">{{filters.toFix(good_info.product_price)}}</text>
+        <text style="font-size:11px;background-color:#504C4F;color:#F7E9B3;padding:6px;margin-left:10px;vertical-align:middle;">会员专属</text>
+        <text style="font-size:30px;color:#E9606E;margin-left:5px;vertical-align:sub;" wx:if="{{good_info.open_discount==0}}">{{good_info.product_price}}</text>
+        <text style="color:#000;padding:5px;border:1px solid #504C4F;font-size:11px;vertical-align:middle;" wx:if="{{good_info.open_discount==1}}">{{filters.toFix(good_info.product_price*good_info.noble_discount)}}（{{design.currency}}）</text>
+    </view>
+    <view style="height:1px;width:100%;background-color:#F6F8F8;"></view>
+    <view style="margin-top:10px;margin-bottom:10px;">
+        <text style="font-size:11px;border:1px solid #FF814B;color:#FF814B;padding:5px;">会员专属</text>
+        <text style="margin-left:10px;font-size:13px;color:#FF814B;letter-spacing:1px;">赠送{{good_info.noble_rebate}}{{design.confer}}</text>
+        <image mode="widthFix" src="../../../style/icon/jifen.png" style="width:20px;vertical-align:sub;"></image>
+    </view>
+    <view style="height:1px;width:100%;background-color:#F6F8F8;"></view>
+</view>
+<view style="margin:20px;">
+    <view style="border-left:4px #FF9966 solid;font-size:14px;">
+        <text style="margin-left:10px;">详情</text>
+    </view>
+</view>
+<import src="../../../util/wxParse/wxParse.wxml"></import>
+<view style="text-align:center;width:94%;padding:10px;">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+</view>
+<view style="height:50px;"></view>
+<view style="position:fixed;bottom:0;width:100%;text-align:center;">
+    <view style="box-shadow: 0px 0px 10px 0px #999999;background-color:#999999;width:200px;margin:30px auto;height:47px;line-height:47px;color:#ffffff;border-radius:50px;" wx:if="{{good_info.product_inventory<=0}}">
+    已抢完
+  </view>
+    <view style="position:relative;" wx:if="{{good_info.product_inventory>0}}">
+        <image bindtap="exchange" mode="widthFix" src="../../../style/icon/byn.png" style="width:200px;vertical-align:sub;margin:20px 0px;"></image>
+        <view bindtap="exchange" style="position:absolute;top:32%;left:41%;color:#fff;letter-spacing:1.5px;">立即兑换</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>
+<wxs module="filters" src="tofix.wxs" />

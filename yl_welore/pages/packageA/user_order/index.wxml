@@ -1,0 +1,92 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <i-tabs bindchange="handleChange" color="#000000" current="{{current}}" iClass="yes_pos">
+        <i-tab key="tab1" title="待发货"></i-tab>
+        <i-tab key="tab2" title="已发货"></i-tab>
+        <i-tab key="tab3" title="申请退款"></i-tab>
+        <i-tab key="tab4" title="已退款"></i-tab>
+        <i-tab key="tab5" title="已完成"></i-tab>
+    </i-tabs>
+</view>
+<view style="background-color:#F3F3F3;min-height:41.3em;">
+    <view class="classify" style="left:37%;" wx:if="{{my_list.length==0}}">
+        <view class="class_border" style="border:0rpx;">
+            <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+        </view>
+        <view style="font-size:13px;margin-top:5px;color:#000;">没有任何信息</view>
+    </view>
+    <view style="padding:5px;">
+        <view style="background-color:#fff;border-radius:15px;min-height:100px;padding:10px;margin:10px;" wx:for="{{my_list}}" wx:key="m_key">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/good_info/index?id={{item.product_id}}">
+                <image mode="aspectFit" src="{{item.product_img}}" style="width:5em;height:5em;margin:15px 10px;float:left;"></image>
+                <view class="course-name" style="float:left;margin-top:26px;width:65%;">{{item.product_name}}</view>
+                <view style="margin-top:10px;float:left;font-size:12px;color:#999999;width:65%;">
+        购买时间：{{item.buy_time}}
+      </view>
+                <view style="float:right;margin-right:20px;font-size:14px;padding-top:10px;margin-bottom:20px;">合计:
+        <text style="font-size:20px;">{{item.actual_price}}</text>
+                    <image mode="widthFix" src="../../../style/icon/jinbi.png" style="width:17px;vertical-align:sub;"></image>
+                </view>
+            </navigator>
+            <view style="clear:both;height:0"></view>
+            <view>
+                <view bindtap="ok_mod" data-id="{{item.id}}" style="float:right;border:1px solid #FF783C;color:#FF783C;width:78px;text-align:center;border-radius:40px;font-size:12px;padding:5px 5px;" wx:if="{{item.status==1}}">确认收货</view>
+                <view bindtap="refund_mod" data-id="{{item.id}}" style="float:right;border:1px solid #CC3333;color:#CC3333;margin:0 10px;width:78px;text-align:center;border-radius:40px;font-size:12px;padding:5px 5px;" wx:if="{{item.refund_count==0&&item.status!=3&&item.status!=4}}">申请退款</view>
+                <view bindtap="refund_del" data-id="{{item.id}}" style="float:right;border:1px solid #CC3333;color:#CC3333;margin:0 10px;width:78px;text-align:center;border-radius:40px;font-size:12px;padding:5px 5px;" wx:if="{{item.status==2}}">取消退款</view>
+                <navigator url="/yl_welore/pages/packageA/order_info/index?id={{item.id}}">
+                    <view style="float:right;border:1px solid #999;width:78px;text-align:center;border-radius:40px;font-size:12px;padding:5px 5px;">查看详情</view>
+                </navigator>
+            </view>
+            <view style="clear:both;height:0"></view>
+        </view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{refund_mod}}"></view>
+<view class="modal-dialog" wx:if="{{refund_mod}}">
+    <view class="modal-title">申请退款</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="color:#999999;font-size:13px;">
+            <textarea autoFocus bindinput="bindTextAreaBlur" maxlength="500" placeholder="请填写退款理由(最多500个字)" style="width:100%;height:100px;"></textarea>
+        </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="refund_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{refund_del}}"></view>
+<view class="modal-dialog" wx:if="{{refund_del}}">
+    <view class="modal-title">取消退款</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="color:#999999;font-size:13px;text-align:center;">
+      确定要取消退款吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="refund_del_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{ok_mod}}"></view>
+<view class="modal-dialog" wx:if="{{ok_mod}}">
+    <view class="modal-title">收货确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="color:#999999;font-size:13px;text-align:center;">
+      确定要确认收货吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="ok_mod_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

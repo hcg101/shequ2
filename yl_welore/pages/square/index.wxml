@@ -1,0 +1,37 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" wx:if="{{nvabarData.showCapsule}}">
+            <view bindtap="_navback" wx:if="{{!share}}">
+                <image class="back-pre" mode="aspectFill" src="../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="container" style="margin-top:{{height*2+20}}px">
+    <view class="nav_left">
+        <view bindtap="get_left_type" class="nav_left_items {{curNav==-1?'select':''}}" data-id="-1" data-index="{{index}}" data-type="-1">已加入</view>
+        <view bindtap="get_left_type" class="nav_left_items {{curNav==-2?'select':''}}" data-id="-2" data-index="{{index}}" data-type="-2">最热</view>
+        <view bindtap="get_left_type" class="nav_left_items {{curNav==-3?'select':''}}" data-id="-3" data-index="{{index}}" data-type="-3">最新</view>
+        <view bindtap="get_left_type" class="nav_left_items {{curNav==item.id?'select':''}}" data-id="{{item.id}}" data-index="{{index}}" data-type="0" wx:for="{{navLeftItems}}" wx:key="l_index">{{item.name}}</view>
+    </view>
+    <scroll-view bindscrolltolower="lower" class="nav_right" scrollY="true" style="top:12%">
+        <view wx:for="{{navRightItems}}" wx:for-index="rightIndex" wx:key="r_index">
+            <view class="weui-cell" style="padding:0;margin:10px 0 25px 0;">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image src="{{item.realm_icon}}" style="width:45px;height:45px; display: block;border-radius:50%;"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    <view style="font-size:28rpx;color:#000000;">
+                        <image src="../../style/icon/mi.png" style="width:22px;height:22px;vertical-align:sub;" wx:if="{{item.attention==1}}"></image>{{item.realm_name}}</view>
+                    <view style="font-size: 10px;color: #888888;">{{item.concern}}人加入　{{item.is_paper_count}}条内容</view>
+                </view>
+                <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.id}}">
+                    <view style="color:#ffffff;font-size:12px;background-color:#00CC33;padding:10rpx;width:100rpx;text-align:center;border-radius:30px;">去{{design.landgrave}}</view>
+                </navigator>
+            </view>
+        </view>
+        <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+    </scroll-view>
+</view>
+<i-toast id="toast"></i-toast>

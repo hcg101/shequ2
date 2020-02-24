@@ -1,0 +1,27 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<view style="width:91%;padding:20px;">
+    <view class="weui-footer" style="margin-top:20px;margin-bottom:20px;">
+        <view class="weui-footer__links">
+            <image mode="widthFix" src="{{copyright.sgraph}}" style="width:100px;border-radius:50%;"></image>
+        </view>
+        <view class="weui-footer__links">
+            <view class="weui-footer__link" style="word-break:break-all;color:#000">{{copyright.title}}</view>
+        </view>
+        <view class="weui-footer__text" style="word-break:break-all;margin:10px 0px;">{{copyright.copyright}}</view>
+        <view bindtap="call_phone" class="weui-footer__links" data-phone="{{copyright.cust_phone}}">
+            <view class="weui-footer__link" style="word-break:break-all">客服：{{copyright.cust_phone}}</view>
+        </view>
+        <view class="weui-footer__links">
+            <view class="weui-footer__text" style="word-break:break-all;margin:10px 0px;">小程序版本：v{{version}}</view>
+        </view>
+    </view>
+</view>
+<official-account></official-account>
+<i-toast id="toast"></i-toast>

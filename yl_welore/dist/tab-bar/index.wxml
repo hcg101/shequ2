@@ -1,0 +1,8 @@
+<form bindsubmit="get_aa_dd" reportSubmit="true">
+    <view class="i-class i-tab-bar {{fixed?'i-tab-bar-fixed':''}}" style="background:{{background}};height:{{height}}px;">
+        <slot></slot>
+        <view class="i-tab-bar-list">
+            <button bindtap="handleClickItem" class="i-tab-bar-layer" data-key="{{item.key}}" formType="submit" hoverClass="none" style="width: {{100/list.length}}%;z-index:100;" wx:for="{{list}}" wx:key="{{ item.key }}"></button>
+        </view>
+    </view>
+</form>

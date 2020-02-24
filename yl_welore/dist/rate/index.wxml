@@ -1,0 +1,19 @@
+<view bindtouchmove="handleTouchMove" class="i-class i-rate">
+    <input :name="name" class="i-rate-hide-input" type="text"></input>
+    <view bindtap="handleClick" class="i-rate-star {{parse.getCurrent(value,index)}}" data-index="{{index}}" wx:for="{{count}}" wx:key="{{item}}">
+        <i-icon size="{{size}}" type="collection_fill"></i-icon>
+    </view>
+    <view class="i-rate-text" wx:if="{{value!==0}}">
+        <slot></slot>
+    </view>
+</view>
+<wxs module="parse">
+var prefixCls = 'i-rate';
+module.exports = ({
+    getCurrent: (function(value, index) {
+        if (index < value) {
+            return (prefixCls + '-current')
+        }
+    }),
+});
+</wxs>

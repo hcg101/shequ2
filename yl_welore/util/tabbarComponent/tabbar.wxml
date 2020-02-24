@@ -1,0 +1,57 @@
+<view animation="{{animBack}}" class="weui-tabbar_boo" style="height:55px;z-index:250">
+    <view animation="{{animCollect}}" bindtap="nav_add" class="img-style" data-k="tuya">
+        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.graffiti_member==1}}"></image>
+        <image src="{{add['graffito']['images']}}" style="width:100%;height:100%;"></image>
+        <view style="text-align:center;margin-top:-5px;font-size:12px;">{{add['graffito']['title']}}</view>
+    </view>
+    <view animation="{{animTranspond}}" bindtap="nav_add" class="img-style" data-k="yuyin">
+        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.voice_member==1}}"></image>
+        <image src="{{add['audio']['images']}}" style="width:100%;height:100%;"></image>
+        <view style="text-align:center;font-size:12px;margin-top:-5px">{{add['audio']['title']}}</view>
+    </view>
+    <view animation="{{animInput}}" bindtap="nav_add" class="img-style" data-k="tuwen">
+        <image src="{{add['writing']['images']}}" style="width:100%;height:100%;"></image>
+        <view style="text-align:center;margin-top:-5px;font-size:12px;">{{add['writing']['title']}}</view>
+    </view>
+    <view animation="{{animationM}}" bindtap="nav_add" class="img-style" data-k="shipin" wx:if="{{version==0}}">
+        <image src="../../style/icon/left_vip.png" style="width:40px;height:40px;position:absolute;left:0;" wx:if="{{diy.user_vip.video_member==1}}"></image>
+        <image src="{{add['video']['images']}}" style="width:100%;height:100%;"></image>
+        <view style="text-align:center;margin-top:-5px;font-size:12px;">{{add['video']['title']}}</view>
+    </view>
+</view>
+<form bindsubmit="get_aa_dd" reportSubmit="true">
+    <view class="tabbar_box {{isIphoneX?'iphoneX-height':''}}" style="background-color:{{tabbar.backgroundColor}}">
+        <block wx:for="{{tabbar.list}}" wx:key="{{item.pagePath}}">
+            <view class="tabbar_nav" style="color:{{isPopping?tabbar.selectedColor:tabbar.color}}" wx:if="{{item.isSpecial==true&&tabbar.version==0}}">
+                <view bindtap="plus" class="special-wrapper">
+                    <image class="tabbar_icon" src="{{item.iconPath}}"></image>
+                </view>
+                <image class="special-text-wrapper"></image>
+                <text>{{item.text}}</text>
+            </view>
+            <navigator bindtap="{{item.selected?'onTapChild':''}}" class="tabbar_nav" hoverClass="none" openType="switchTab" url="{{item.pagePath}}" wx:if="{{item.isSpecial==false}}">
+                <button class="i-tab-bar-item" formType="submit" hoverClass="none" style="color:{{item.selected&&isPopping==false?tabbar.selectedColor:tabbar.color}}">
+                    <image class="tabbar_icon" src="{{item.selected?item.selectedIconPath:item.iconPath}}"></image>
+                    <text>{{item.text}}</text>
+                </button>
+            </navigator>
+        </block>
+    </view>
+</form>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{check_phone}}"></view>
+<view class="modal-dialog" style="border-radius:0px;" wx:if="{{check_phone}}">
+    <view class="modal-title" style="font-size:15px;">您未绑定手机</view>
+    <view class="modal-content">
+        <view style="text-align:center;">
+            <image mode="widthFix" src="../../style/icon/check_phone.png" style="width:120px;height:120px;"></image>
+        </view>
+        <view style="text-align:center;">
+            <text>微信手机号授权</text>
+        </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+        <button bindgetphonenumber="getPhoneNumber" class="btn-confirm" openType="getPhoneNumber" style="font-size:15px;background-color:#48A246;color:#fff;border-radius:0px;line-height:43px;">确定</button>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

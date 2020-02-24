@@ -1,0 +1,36 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="margin:0px 17px;width:87%;height:auto;border-radius:10px;padding:10px;font-size:14px;">
+    <view style="margin:20px 0px;" wx:for="{{withdraw_list}}" wx:key="w_key">
+        <view style="float:left">
+            <view class="">
+                <text wx:if="{{item.withdraw_type==0}}">微信</text>
+                <text wx:if="{{item.withdraw_type==1}}">银行卡</text> 提现
+      </view>
+            <view style="color:#999999;font-size:13px;">
+                <text wx:if="{{item.status==0}}">{{item.seek_time}}</text>
+                <text wx:if="{{item.status>0}}">{{item.verify_time}}</text>
+                <text style="margin-left:10px;color:#FF9933" wx:if="{{item.status==0}}">审核中</text>
+                <text style="margin-left:10px;color:#33CC99" wx:if="{{item.status==1}}">已提现</text>
+                <text style="margin-left:10px;color:#CC3333" wx:if="{{item.status==2}}">审核未通过</text>
+            </view>
+        </view>
+        <view style="float:right;line-height:50px;">
+            <view style="font-size:18px;color:#54B835">
+        {{item.display_money}}
+      </view>
+        </view>
+        <view style=" clear:both;height:0 "></view>
+    </view>
+</view>
+<i-toast id="toast "></i-toast>
+<wxs module="filters" src="tofix.wxs" />

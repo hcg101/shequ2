@@ -1,0 +1,138 @@
+<view class="page" style="min-height:51em;">
+    <view class="nav-wrap" style="">
+        <view class="nav-title" style="line-height: {{height*2+44}}px;"></view>
+        <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+            <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+                <view bindtap="_navback">
+                    <image class="back-pre" mode="aspectFill" src="../../../style/icon/w_back.png"></image>
+                </view>
+            </view>
+        </view>
+        <view style="margin-top:{{height*2+44}}}px;"></view>
+        <view style="text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[0].id}}">
+                <view style="width:60%;margin:0 auto;text-align:center;color:#ffffff;position:relative;" wx:if="{{info[0]}}">
+                    <image src="../../../style/icon/aj1.png" style="height:71.7px;width:80px;position:absolute;"></image>
+                    <image src="{{info[0].user_head_sculpture}}" style="width:65px;height:65px;border-radius:50%;margin-left:7px;margin-top:6px;"></image>
+                    <view style="color:#fff;font-size:14px;">{{info[0].user_nick_name}}</view>
+                </view>
+            </navigator>
+            <view style="width:80%;margin:0 auto;text-align:center;color:#ffffff;margin-top:25px;">
+                <view class="weui-flex">
+                    <view class="weui-flex__item" wx:if="{{info[1]}}">
+                        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[1].id}}">
+                            <image src="../../../style/icon/aj2.png" style="width:80px;height:63px;position:absolute;"></image>
+                            <image src="{{info[1].user_head_sculpture}}" style="width:55px;height:55px;border-radius:50%;margin-left:13px;margin-top:5px;"></image>
+                            <view style="color:#fff;font-size:14px;">{{info[1].user_nick_name}}</view>
+                        </navigator>
+                    </view>
+                    <view class="weui-flex__item" wx:if="{{info[2]}}">
+                        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[2].id}}">
+                            <image src="../../../style/icon/aj3.png" style="height:63px;width:80px;position:absolute;"></image>
+                            <image src="{{info[2].user_head_sculpture}}" style="width:55px;height:55px;border-radius:50%;margin-left:13px;margin-top:5px;"></image>
+                            <view style="color:#fff;font-size:14px;">{{info[2].user_nick_name}}</view>
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[3].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[3]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.4</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[3].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[3].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[4].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[4]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.5</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[4].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[4].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[5].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[5]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.6</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[5].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[5].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[6].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[6]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.7</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[6].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[6].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[7].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[7]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.8</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[7].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[7].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[8].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[8]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.9</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[8].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[8].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info[9].id}}">
+            <view style="margin-top:20px;position:relative;" wx:if="{{info[9]}}">
+                <image src="../../../style/icon/bili_live_bg_combo_gold.png" style="width:90%;height:45px;margin-left:17px;"></image>
+                <view style="font-size:13px;position:absolute;top:6px;left:35px;color:#fff;">
+                    <view style="float:left;margin-top:9px;">No.10</view>
+                    <view style="float:left;text-align:center;margin-left:20px;">
+                        <image src="{{info[9].user_head_sculpture}}" style="width:34px;height:34px;;border-radius:50%;"></image>
+                    </view>
+                    <view style="float:left;margin-left:11px;margin-top:9px;">{{info[9].user_nick_name}}</view>
+                    <view style="clear:both;height:0"></view>
+                </view>
+            </view>
+        </navigator>
+    </view>
+    <view class="classify" style="left:34%;" wx:if="{{info.length==0}}">
+        <view class="class_border" style="border:0rpx;">
+            <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+        </view>
+        <view style="font-size:13px;margin-top:5px;color:#fff;">还没有任何人送礼</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>

@@ -1,0 +1,8 @@
+.wx_user_login {
+    width: 88%;
+    background: #ffffff;
+    color: #F76260;
+    border-radius: 2rem;
+    border: 1px #F76260 solid;
+    box-shadow: -3px 5px 10rpx 5rpx#F76260;
+}

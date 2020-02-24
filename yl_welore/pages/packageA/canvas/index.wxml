@@ -1,0 +1,124 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" wx:if="{{nvabarData.showCapsule}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px"></view>
+<view style="padding:30rpx;">
+    <view class="weui-cell__bd" wx:if="{{copyright.title_input_arbor==1}}">
+        <input bindinput="set_title_value" class="weui-input" maxlength="20" placeholder="标题" style="color:{{title_color}};font-size:18px;font-weight:600;width:85%;float:left;"></input>
+        <image bindtap="color_select" mode="aspectFill" src="../../../style/icon/ic_category_t5.png" style="width:70rpx;height:70rpx;float:left;margin-left:20rpx;margin-top:20rpx;" wx:if="{{is_vip==1}}"></image>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell__bd" style="margin-top:20rpx;">
+        <textarea autoHeight="true" bindinput="get_text_len" class="weui-textarea" maxlength="-1" placeholder="来吧，畅所欲言..." value="{{text}}" wx:if="{{get_hidden}}"></textarea>
+    </view>
+    <view class="weui-cells" wx:if="{{fa_type==0}}">
+        <view bindtap="cleardraw" style="float:right;box-shadow: 0px 0px 5px 0px #FF0033;background-color:#FF0033;color:#fff;border-radius:20px;font-size:12px;padding:5px 10px;margin-bottom:10px;">清空画布</view>
+        <view style="clear:both;height:0"></view>
+        <view style="display:{{get_hidden==true?'inline':'none'}}">
+            <canvas binderror="canvasIdErrorCallback" bindtouchend="canvasEnd" bindtouchmove="canvasMove" bindtouchstart="canvasStart" canvasId="canvas" disableScroll="true" id="canvas" style="width:100%;height:15em;box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);" touchcancel="canvasEnd"></canvas>
+        </view>
+        <view style="margin:20px 10px;height:25px;">
+            <view bindtap="color_ssss" data-color="#000000" style="height:30px;width:30px;background-color:#000000;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#0000FF" style="height:30px;width:30px;background-color:#0000FF;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#008000" style="height:30px;width:30px;background-color:#008000;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#FFA500" style="height:30px;width:30px;background-color:#FFA500;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#FF0000" style="height:30px;width:30px;background-color:#FF0000;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#FFD700" style="height:30px;width:30px;background-color:#FFD700;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#663399" style="height:30px;width:30px;background-color:#663399;border-radius:50%;float:left;margin:0px 5px;"></view>
+            <view bindtap="color_ssss" data-color="#FA8072" style="height:30px;width:30px;background-color:#FA8072;border-radius:50%;float:left;margin:0px 5px;"></view>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+    <i-cell title="我的位置">
+        <i-switch bind:change="onChangePosition" slot="footer" value="{{is_position}}"></i-switch>
+        <view wx:if="{{is_position==true}}">{{ppooss}}</view>
+    </i-cell>
+    <i-cell title="禁止转发">
+        <i-switch bind:change="onChange" slot="footer" value="{{is_open}}"></i-switch>
+    </i-cell>
+    <i-cell title="红包帖子" wx:if="{{version==0}}">
+        <i-switch bind:change="onChange_red_paper" slot="footer" value="{{red_paper}}"></i-switch>
+    </i-cell>
+    <view wx:if="{{red_paper}}">
+        <view style="padding:12px 15px;font-size:12px;">我的{{design.confer}}余额：{{user_info.fraction}}</view>
+        <i-input right bind:change="get_red_money" mode="wrapped" placeholder="填写金额" title="总金额" type="digit" value="{{xian_red_money}}" wx:if="{{red_type==1}}"></i-input>
+        <i-input right bind:change="get_red_money_d" mode="wrapped" placeholder="填写单个金额" title="单个金额" type="digit" value="{{xian_red_money}}" wx:if="{{red_type==0}}"></i-input>
+        <view bindtap="set_red_type" style="padding-left:15px;font-size:14px;">
+      当前为
+      <text wx:if="{{red_type==1}}">拼手气</text>
+            <text wx:if="{{red_type==0}}">普通</text>红包，改为
+      <text style="color:#BD9957" wx:if="{{red_type==1}}">普通红包</text>
+            <text style="color:#BD9957" wx:if="{{red_type==0}}">拼手气红包</text>
+        </view>
+        <i-input right bind:change="get_red_count" mode="wrapped" placeholder="填写个数" title="红包个数" type="number" value="{{zong_red_count}}"></i-input>
+        <view style="text-align:center;font-size:30px;font-weight:700;">{{zong_red_money}}{{design.confer}}</view>
+    </view>
+    <i-cell title="付费帖子" wx:if="{{version==0}}">
+        <i-switch bind:change="onChange_money_paper" slot="footer" value="{{money_paper}}"></i-switch>
+    </i-cell>
+    <view wx:if="{{money_paper}}">
+        <view style="padding:12px 15px;font-size:12px;">我的{{design.confer}}余额：{{user_info.fraction}}</view>
+        <i-input right bind:change="get_paper_money" maxlength="7" mode="wrapped" placeholder="填写金额" title="金额" type="digit" value="{{money}}"></i-input>
+        <view style="text-align:center;font-size:30px;font-weight:700;">{{xian_money}}{{design.confer}}</view>
+    </view>
+    <view bindtap="toggleLeft" class="weui-cells weui-cells_after-title" style="margin-top:20rpx;line-height:2rem;" wx:if="{{check_fa_class}}">
+        <view class="weui-cell__bd" style="font-size:14px;margin-left:20rpx;">{{title}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" style="position:static;"></view>
+    </view>
+    <button bindtap="submit" class="add_submit" disabled="{{is_submit}}" style="width:150px;margin-bottom:20px;margin-top:20px;">发布</button>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageC/post_notice/index">
+        <view style="color:#FF9966;text-align:center;font-size:14px;">
+            <text style="vertical-align:middle;">发帖须知</text>
+            <i-icon size="18" type="feedback_fill"></i-icon>
+        </view>
+    </navigator>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{text_color}}"></view>
+<view class="modal-dialog" wx:if="{{text_color}}">
+    <view class="modal-title" style="font-size:15px;">字体颜色</view>
+    <view class="modal-content">
+        <view bindtap="handleClick4" data-index="{{a_index}}" style="width:40px;height:40px;background-color:{{item.color}};border-radius:5px;margin:10px 10px;float:left;" wx:for="{{actions4}}" wx:for-index="a_index" wx:key="a_key"></view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>
+<i-drawer bind:close="toggleLeft" mode="left" visible="{{showLeft}}">
+    <view class="demo-container" style="padding-top:{{(height*2+20)*2}}px">
+        <view class="container">
+            <view style="text-align:center;padding-top:20px;color:#000;font-size:14px;" wx:if="{{navRightItems.length==0}}">您没有关注任何{{design.landgrave}}</view>
+            <navigator hoverClass="none" openType="reLaunch" url="/yl_welore/pages/circle/index" wx:if="{{navRightItems.length==0}}">
+                <view style="text-align:center;color:#ffffff;background-color:#0099FF;width:25vw;margin:0 auto;margin-top:10px;">去关注</view>
+            </navigator>
+            <scroll-view bindscrolltolower="lower" class="nav_right" scrollY="true" style="top:12%">
+                <view wx:for="{{navRightItems}}" wx:for-index="rightIndex" wx:key="r_index">
+                    <view bindtap="select_qq_id" class="weui-cell" data-id="{{item.id}}" data-name="{{item.realm_name}}" style="padding:0;margin:10px 0 25px 0;">
+                        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <image src="{{item.realm_icon}}" style="width:45px;height:45px; display: block;border-radius:50%;"></image>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <view style="font-size:28rpx;color:#000000;">
+                                <view class="course-name">
+                                    <image src="../../../style/icon/mi.png" style="width:22px;height:22px;vertical-align:sub;" wx:if="{{item.attention==1}}"></image>{{item.realm_name}}</view>
+                            </view>
+                            <view style="font-size: 10px;color: #888888;">{{item.concern}}人加入　{{item.is_paper_count}}条内容</view>
+                        </view>
+                    </view>
+                </view>
+                <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+            </scroll-view>
+        </view>
+    </view>
+</i-drawer>
+<i-modal bind:cancel="handleClose" bind:ok="handleOk" visible="{{visible_pos}}">
+    <view>需要使用您的地理位置，是否允许？</view>
+</i-modal>

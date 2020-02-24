@@ -1,0 +1,177 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="width:100%;height:auto;margin-top:{{height*2+40}}px;background-color:#ffffff;">
+    <view style="padding-left:26rpx;color:#AFAFAF;background-color:#F1F1F1;border-top-left-radius:33px;border-bottom-left-radius:33px;width:66%;height:70rpx;;float:left;margin-left:36px;position:relative;">
+        <input bindinput="get_search" confirmType="done" maxlength="20" placeholder="搜索" style="height:35px;line-height:35px;text-align:center;color:#000000;" value="{{get_search}}"></input>
+        <view bindtap="col_search" style="z-index:99999999;position:absolute;top:8px;right:11px;width:23px;height:23px;text-align:center;line-height:23px;border-radius:50%;background-color:#CBCBCB;" wx:if="{{get_search!=''}}">
+            <i-icon color="#ffffff" type="close"></i-icon>
+        </view>
+    </view>
+    <view bindtap="submit_search" style="padding-left:26rpx;color:#AFAFAF;background-color:#2E77ED;border-top-right-radius:33px;border-bottom-right-radius:33px;width:10%;height:70rpx;float:left;line-height:60rpx;;">
+        <i-icon color="#ffffff" size="24" type="search"></i-icon>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="margin:20px;" wx:if="{{is_search&&set_list==false}}">
+    <view style="font-weight:700;">
+        <view style="float:left">搜索历史</view>
+        <view bindtap="removeStorage" style="float:right;line-height:33px;">
+            <image src="../../../style/icon/laji.png" style="width:20px;height:20px;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+    <view style="width:100%;">
+        <view bindtap="lishi_search" data-search="{{item.search}}" style="margin-top:15px;margin-right:10px;float:left;background-color:#F6F6F6;border-radius:20px;padding:3px 15px;font-size:14px;" wx:for="{{get_lishi}}" wx:key="g_key">{{item.search}}</view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<view style="margin:20px;" wx:if="{{set_list}}">
+    <view style="font-weight:700;">
+        <view>{{design.landgrave}}</view>
+    </view>
+    <view style="width:100%;margin-top:10px;" wx:if="{{is_search_yes==0}}">
+        <view style="float:left;font-size:14px;">暂时没有“{{get_search}}”的{{design.landgrave}}</view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/set_territory/index">
+            <view style="float:right;font-size:12px;color:#2E77ED;border:1px #2E77ED solid;border-radius:20px;padding:3px 10px;">
+        抢先申请
+      </view>
+        </navigator>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell" style="padding:0px;margin-top:20px;" wx:for="{{territory}}" wx:key="t_key">
+        <view style="clear:both;height:0"></view>
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <image src="{{item.realm_icon}}" style="width: 50px; height: 50px; display: block;border-radius:50%;"></image>
+        </view>
+        <view class="weui-cell__bd">
+            <view style="font-size:28rpx;">{{item.realm_name}}
+      </view>
+            <view style="font-size: 13px;color: #888888;">{{item.concern}}人加入　|　{{item.paper_count}}条内容</view>
+        </view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.id}}">
+            <view style="color:#ffffff;font-size:12px;background-color:#00CC33;padding:10rpx;width:100rpx;text-align:center;border-radius:3px;">去{{design.landgrave}}</view>
+        </navigator>
+    </view>
+</view>
+<view style="background-color:#ffffff;" wx:if="{{set_list}}">
+    <view style="width:100%;height:5px;background-color:#F7F7FA;"></view>
+    <view style="font-weight:700;margin:20px;">
+        <view>动态</view>
+    </view>
+    <block wx:for="{{new_list}}" wx:for-index="dataListindex" wx:key="index_key">
+        <view class="weui-cells weui-cells_after-title" style="margin-bottom:10rpx;" wx:if="{{item.study_type==0}}">
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image src="{{item.user_head_sculpture}}" style="width: 35px; height: 35px; display: block;border-radius:50rpx;"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    <view style="font-size:24rpx;">{{item.user_nick_name}}
+            <image src="../../../style/icon/vip.png" style="width:15px;height:15px;;vertical-align:sub;" wx:if="{{item.user_vip==1}}"></image>
+                        <image src="../../../style/icon/man.png" style="width:15px;height:15px;vertical-align:sub;" wx:if="{{item.gender==1||item.gender==0}}"></image>
+                        <image src="../../../style/icon/wuman.png" style="width:15rpx;height:15rpx;vertical-align:sub;" wx:if="{{item.gender==2}}"></image>
+                    </view>
+                    <view style="font-size: 13px;color: #888888;">{{item.realm_name}} | {{item.adapter_time}}</view>
+                </view>
+            </view>
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=0">
+                <view class="weui-cell" style="padding:0rpx 20rpx 20rpx 20rpx;">
+                    <view class="weui-cell__hd text_num" style="position: relative;margin-right: 10px;color:{{item.study_title_color}};">
+            {{item.study_title==''?item.study_content:item.study_title}}
+          </view>
+                </view>
+            </navigator>
+            <view style="overflow:hidden">
+                <view style="width:{{item.image_length}}%;float:left;text-align:center;" wx:for="{{item.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                    <image bindtap="previewImage" data-id="{{dataListindex}}" data-src="{{img}}" lazyLoad="true" mode="aspectFit" src="{{img}}" style="width:100%;height:100px;margin:0rpx 10rpx 10rpx 15rpx;" wx:if="{{img_index==0||img_index==1||img_index==2}}"></image>
+                </view>
+            </view>
+            <view style="clear:both;height:0"></view>
+            <view class="weui-flex" style="padding-bottom:10px;">
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/kan.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.study_heat}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button bindtap="add_zan" data-id="{{item.id}}" data-key="{{dataListindex}}" hoverClass="none">
+                        <image animation="{{item.animationData_zan}}" mode="widthFix" src="../../../style/icon/xiao_no.png" style="width: 22px; height: 22px;vertical-align:middle;" wx:if="{{item.is_info_zan==false}}"></image>
+                        <image animation="{{item.animationData_zan}}" mode="widthFix" src="../../../style/icon/xiao.png" style="width: 22px; height: 22px;vertical-align:middle;" wx:if="{{item.is_info_zan==true}}"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.info_zan_count}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/info_pl.png" style="width: 24px; height: 24px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.study_repount}}</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title" style="margin-bottom:10rpx;" wx:if="{{item.study_type==1}}">
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image src="{{item.user_head_sculpture}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    <view style="font-size:24rpx;">{{item.user_nick_name}}
+            <image src="../../../style/icon/vip.png" style="width:15px;height:15px;;vertical-align:sub;" wx:if="{{item.user_vip==1}}"></image>
+                        <image src="../../../style/icon/man.png" style="width:15px;height:15px;vertical-align:sub;" wx:if="{{item.gender==1||item.gender==0}}"></image>
+                        <image src="../../../style/icon/wuman.png" style="width:15rpx;height:15rpx;vertical-align:sub;" wx:if="{{item.gender==2}}"></image>
+                    </view>
+                    <view style="font-size: 13px;color: #888888;">{{item.realm_name}} | {{item.adapter_time}}</view>
+                </view>
+            </view>
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{item.id}}&type=1">
+                <view class="weui-cell" style="padding:0rpx 20rpx 20rpx 20rpx;">
+                    <view class="weui-cell__hd text_num" style="position: relative;margin-right: 10px;color:{{item.study_title_color}};">
+            {{item.study_title==''?item.study_content:item.study_title}}
+          </view>
+                </view>
+            </navigator>
+            <view class="weui-cell" style="width:50%;margin:0 auto;border:1px solid #E6E9ED;background-color:#F7F9FA;">
+                <view style="width:100%;">
+                    <image bindtap="play" data-key="{{dataListindex}}" data-vo="{{item.study_voice}}" mode="aspectFill" src="../../../style/icon/play.png" style="width:50rpx;height:50rpx;float:left;" wx:if="{{item.is_voice==false}}"></image>
+                    <image bindtap="stop" data-key="{{dataListindex}}" data-vo="{{item.study_voice}}" mode="aspectFill" src="../../../style/icon/stop.png" style="width:50rpx;height:50rpx;float:left;" wx:if="{{item.is_voice==true}}"></image>
+                    <view style="float:left;margin-left:20rpx;font-size:14px;margin-top:10rpx;">一段语音</view>
+                    <view style="float:right;font-size:14px;margin-top:10rpx;">{{item.study_voice_time}}"</view>
+                </view>
+            </view>
+            <view class="weui-flex" style="padding-bottom:10px;padding-top:10px;">
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/kan.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.study_heat}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button bindtap="add_zan" data-id="{{item.id}}" data-key="{{dataListindex}}" hoverClass="none">
+                        <image animation="{{item.animationData_zan}}" mode="widthFix" src="../../../style/icon/xiao_no.png" style="width: 22px; height: 22px;vertical-align:middle;" wx:if="{{item.is_info_zan==false}}"></image>
+                        <image animation="{{item.animationData_zan}}" mode="widthFix" src="../../../style/icon/xiao.png" style="width: 22px; height: 22px;vertical-align:middle;" wx:if="{{item.is_info_zan==true}}"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.info_zan_count}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/info_pl.png" style="width: 24px; height: 24px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{item.study_repount}}</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+        <view style="width:100%;height:4px;background-color:#F7F7FA;"></view>
+    </block>
+    <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+</view>
+<i-toast id="toast"></i-toast>
+<i-modal bind:cancel="Close_no" bind:ok="Close_ok" title="清空" visible="{{clean}}">
+    <view>确定要清空搜索记录吗？</view>
+</i-modal>

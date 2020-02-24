@@ -1,0 +1,463 @@
+<block wx:if="{{info}}">
+    <view class="nav-wrap" style="height: {{height*2+20}}px;">
+        <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+        <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+            <view class="nav-capsule" wx:if="{{nvabarData.showCapsule}}">
+                <view bindtap="_navback" wx:if="{{!share}}">
+                    <image class="back-pre" src="../../../style/icon/back.png"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="word-break:break-all;margin-top:{{height*2+20}}px;padding:10px 15px;font-weight:600;font-size:20px;color:{{info.study_title_color}};position:relative;">
+        <image src="../../../style/icon/005.gif" style="height:65px;width:110px;vertical-align:sub;position:absolute;opacity:0.8;left:59%;top:-2%;" wx:if="{{info.topping_time}}"></image>
+    {{info.study_title}}
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view class="weui-cell" style="padding:0px 15px;">
+        <view style="clear:both;height:0"></view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{info.user_id}}">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <image src="{{info.user_head_sculpture}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+            </view>
+        </navigator>
+        <view class="weui-cell__bd">
+            <view style="font-size:15px;">{{info.user_nick_name}}
+        <image src="../../../style/icon/man.png" style="width:23px;height:23px;vertical-align:bottom;" wx:if="{{info.gender==1||info.gender==0}}"></image>
+                <image src="../../../style/icon/wuman.png" style="width:23px;height:23px;vertical-align:bottom;" wx:if="{{info.gender==2}}"></image>
+                <image src="../../../style/icon/vip.png" style="width:20px;height:20px;;vertical-align:bottom;" wx:if="{{info.user_vip==1}}"></image>
+            </view>
+            <view style="font-size: 13px;color: #888888;">{{info.realm_name}}　|　{{info.adapter_time}}</view>
+        </view>
+        <image bindtap="handleCancel2" mode="widthFix" src="../../../style/icon/bqd.png" style="width:40px;"></image>
+    </view>
+    <view style="margin:35rpx 35rpx 0rpx 35rpx;word-break:break-all;font-size:14px;">
+        <text selectable="true">{{info.study_content}}</text>
+        <view style="margin:20px;">
+            <view class="weui-cell" style="padding-left:20px;" wx:if="{{info_type==1}}">
+                <image src="{{info.user_head_sculpture}}" style="width: 35px; height: 35px; display: block;border-radius:50rpx;"></image>
+                <view bindtap="{{info.is_voice==false?'play':'stop'}}" data-key="{{dataListindex}}" data-vo="{{info.study_voice}}" style="margin-left:10px;background-image: linear-gradient(to right, #434343 0%, black 100%);color:#fff;height:40px;border-radius:25px;width:60%;">
+                    <image mode="aspectFill" src="../../../style/icon/home_yuyim.png" style="position:absolute;top:28%;left:25%;width:50rpx;height:50rpx;float:left;" wx:if="{{info.is_voice==false}}"></image>
+                    <image mode="aspectFill" src="../../../style/icon/home_yuyim1.gif" style="position:absolute;top:28%;left:25%;width:50rpx;height:50rpx;float:left;" wx:if="{{info.is_voice==true}}"></image>
+                    <view style="float:right;font-size:14px;margin-top:10px;margin-right:15px;">{{info.study_voice_time==0?1:info.study_voice_time}}"</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell" style="margin:0 auto;" wx:if="{{info_type==2}}">
+            <video autoplay="true" id="myVideo" src="{{info.study_video}}" style="margin:0 auto;width:100%;"></video>
+        </view>
+        <view style="text-align:center;" wx:if="{{info_type!=2&&img!=''}}" wx:for="{{info.image_part}}" wx:for-index="dataListindex" wx:for-item="img" wx:key="img_index">
+            <image bindtap="previewImage" data-src="{{img}}" mode="widthFix" src="{{img}}" style="width:100%"></image>
+        </view>
+    </view>
+    <view style="padding-left:10px" wx:if="{{info.address_name!=null}}">
+        <view style="margin-top:10px;float:left;">
+            <image src="../../../style/icon/pos.png" style="margin-left:7px;vertical-align:middle;width:25px;height:25px;border-radius:50px;"></image>
+            <text style="font-size:13px;padding-left:5px;vertical-align:middle;color:#999;">{{info.address_name}}-{{info.address_details}}</text>
+        </view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view style="padding-bottom:10px;margin-top:15px;text-align:center;" wx:if="{{info.red&&version==0}}">
+        <view class="weui-flex">
+            <view class="weui-flex__item" style="color:#FF9966;">
+                <view>
+                    <image src="../../../style/icon/atk1.png" style="height:26px;width:30px;vertical-align:sub;"></image>
+                    <text style="font-size:14px;margin-left:5px;">红包总数：{{info.red.initial_quantity}}，剩余：{{info.red.surplus_quantity}}</text>
+                </view>
+                <view>
+                    <image src="../../../style/icon/jifen.png" style="height:25px;width:25px;vertical-align:middle;"></image>
+                    <text style="font-size:14px;margin-left:5px;">红包金额：{{info.red.initial_fraction}}，剩余：{{info.red.surplus_fraction}}</text>
+                </view>
+                <view style="font-size:14px;text-align:center;color:#CCCCCC">回复可获得红包</view>
+            </view>
+        </view>
+    </view>
+    <view style="padding-bottom:10px;margin-top:15px;">
+        <view class="weui-flex">
+            <block wx:if="{{version==0&&info.is_buy==0}}">
+                <view class="weui-flex__item" wx:if="{{info.is_open==1||info.user_id==uid}}">
+                    <button bindgetuserinfo="zhuanfa" hoverClass="none" openType="getUserInfo">
+                        <image src="../../../style/icon/zhuanfa.png" style="width: 25px; height: 25px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">转发</text>
+                    </button>
+                </view>
+            </block>
+            <view class="weui-flex__item">
+                <button bindtap="huifu" hoverClass="none">
+                    <image src="../../../style/icon/info_pl.png" style="width: 27px; height: 27px;vertical-align:middle;"></image>
+                    <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{info.study_repount}}</text>
+                </button>
+            </view>
+            <view class="weui-flex__item">
+                <button bindtap="add_sc" hoverClass="none">
+                    <image animation="{{animationData_sc}}" src="../../../style/icon/info_sc.png" style="width: 28px; height: 28px;vertical-align:middle;" wx:if="{{info.is_info_sc==false}}"></image>
+                    <image animation="{{animationData_sc}}" src="../../../style/icon/info_sc_do.png" style="width: 28px; height: 28px;vertical-align:middle;" wx:if="{{info.is_info_sc==true}}"></image>
+                    <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{info.info_sc_count_this>10000?info.info_sc_count:info.info_sc_count_this}}</text>
+                </button>
+            </view>
+            <view class="weui-flex__item">
+                <button bindtap="add_zan" data-kkk="0" hoverClass="none">
+                    <image animation="{{animationData_zan}}" src="../../../style/icon/xiao_no.png" style="width: 26px; height: 26px;vertical-align:middle;" wx:if="{{info.is_info_zan==false}}"></image>
+                    <image animation="{{animationData_zan}}" src="../../../style/icon/xiao.png" style="width: 26px; height: 26px;vertical-align:middle;" wx:if="{{info.is_info_zan==true}}"></image>
+                    <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{info.info_zan_count_this>10000?info.info_zan_count:info.info_zan_count_this}}</text>
+                </button>
+            </view>
+        </view>
+    </view>
+    <view style="height:1px;width:100%;background-color:#F4F4F4"></view>
+    <view style="min-height:120px;" wx:if="{{version==0}}">
+        <view style="padding:10px 20px;font-size:14px;float:left;">
+      礼物榜</view>
+        <view style="padding:10px 20px;font-size:14px;float:left;">
+            <image src="../../../style/icon/bxf.png" style="height:20px;width:20px;vertical-align:sub;"></image>
+            <text style="margin-left:5px;font-size:15px">{{liwu_count}}</text>
+        </view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/user_guard/index?id={{info.user_id}}">
+            <view style="padding:10px 20px;font-size:14px;float:right;">
+                <text style="margin-left:5px;font-size:12px;color:#AAAAAA;">查看完整榜单</text>
+                <i-icon color="#AAAAAA" type="enter"></i-icon>
+            </view>
+        </navigator>
+        <view style="clear:both;height:0"></view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{liwu_ph[0].id}}">
+            <view style="float:left;position:relative;margin:5px 20px 5px 20px;">
+                <image src="{{liwu_ph[0].user_head_sculpture}}" style="height:50px;width:50px;border-radius:50%" wx:if="{{liwu_ph[0]}}"></image>
+                <image src="../../../style/icon/xu.png" style="height:50px;width:50px;border-radius:50%" wx:if="{{!liwu_ph[0]}}"></image>
+                <image src="../../../style/icon/ic_renwu_no_1.png" style="height:18px;width:50px;position:absolute;left:0;bottom:0;"></image>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{liwu_ph[1].id}}">
+            <view style="float:left;position:relative;margin:5px 20px;">
+                <image src="{{liwu_ph[1].user_head_sculpture}}" style="height:50px;width:50px;border-radius:50%" wx:if="{{liwu_ph[1]}}"></image>
+                <image src="../../../style/icon/xu.png" style="height:50px;width:50px;border-radius:50%" wx:if="{{!liwu_ph[1]}}"></image>
+                <image src="../../../style/icon/ic_renwu_no_2.png" style="height:18px;width:50px;position:absolute;left:0;bottom:0;"></image>
+            </view>
+        </navigator>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{liwu_ph[2].id}}">
+            <view style="float:left;position:relative;margin:5px 20px;">
+                <image src="{{liwu_ph[2].user_head_sculpture}}" style="height:50px;width:50px;border-radius:50%" wx:if="{{liwu_ph[2]}}"></image>
+                <image src="../../../style/icon/xu.png" style="height:50px;width:50px;border-radius:50%" wx:if="{{!liwu_ph[2]}}"></image>
+                <image src="../../../style/icon/ic_renwu_no_3.png" style="height:18px;width:50px;position:absolute;left:0;bottom:0;"></image>
+            </view>
+        </navigator>
+        <view style="float:left;height:50px;border:1px solid #F3F3F3;margin:5px;"></view>
+        <view bindtap="add_liwu" style="float:left;position:relative;margin-top:5px;width:20%;text-align:center;">
+            <image src="../../../style/icon/auu.png" style="width:50px;height:50px;"></image>
+        </view>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view style="height:1px;width:100%;background-color:#F4F4F4"></view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{info.realm_id}}">
+        <view class="weui-cell">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <image src="{{info.realm_icon}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view style="font-size:14px;">{{info.realm_name}}</view>
+                <view style="font-size: 13px;color: #888888;">关注 {{info.concern}}　|　帖子 {{info.paper_number}}</view>
+            </view>
+            <image class="xwcms" src="../../../style/icon/fanhui.png" style="width: 50rpx; height: 50rpx;opacity:0.4;"></image>
+        </view>
+    </navigator>
+    <view style="height:1px;width:100%;background-color:#F4F4F4"></view>
+    <view style="width:100%;">
+        <i-tabs bindchange="handleChange_h" color="#000000" current="{{current_h}}" iClass="yes_pos">
+            <i-tab key="h1" title="全部回复"></i-tab>
+            <i-tab key="h2" title="只看楼主"></i-tab>
+            <i-tab key="h3" title="我的回复"></i-tab>
+        </i-tabs>
+    </view>
+    <view style="padding-bottom:3em;">
+        <view style="margin-top:10px;" wx:if="{{ad_info.adsper==1}}">
+            <ad unitId="{{ad_info.adunit_id}}"></ad>
+        </view>
+        <block wx:for="{{huifu_list}}" wx:for-index="hui_list_index" wx:for-item="hui" wx:key="hui_index">
+            <view class="weui-cell" style="margin-top:10px;">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{hui.user_id}}">
+                    <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <image src="{{hui.user_head_sculpture}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+                    </view>
+                </navigator>
+                <view class="weui-cell__bd">
+                    <view style="font-size:14px;">{{hui.user_nick_name}}
+            <image src="../../../style/icon/louzhu.png" style="width:29px;height:16px;;vertical-align:sub;margin-right:5px;" wx:if="{{hui.is_paper_user==hui.user_id}}"></image>
+                        <image src="../../../style/icon/vip.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{hui.user_vip==1}}"></image>
+                        <image src="../../../style/icon/man.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{hui.gender==1||hui.gender==0}}"></image>
+                        <image src="../../../style/icon/wuman.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{hui.gender==2}}"></image>
+                        <text style="background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);width:30px;color:#fff;padding:5px 10px;border-radius:4px;font-size:9px;" wx:if="{{item.check_qq=='da'}}">{{design.qq_name}}主</text>
+                        <image mode="widthFix" src="../../../style/icon/pp_circle_admin.png" style="width:40px;vertical-align:sub;" wx:if="{{hui.is_qq=='xiao'}}"></image>
+                    </view>
+                    <view style="font-size: 13px;color: #888888;">
+            {{hui.phase}}楼
+          </view>
+                </view>
+                <i-icon bindtap="get_huifu_zan" data-index="{{hui_list_index}}" data-kkk="{{hui.id}}" iClass="zan_style" size="25" type="praise" wx:if="{{hui.is_huifu_zan==false}}"></i-icon>
+                <i-icon bindtap="get_huifu_zan" color="#E5635E" data-index="{{hui_list_index}}" data-kkk="{{hui.id}}" iClass="zan_style" size="25" type="praise_fill" wx:if="{{hui.is_huifu_zan==true}}"></i-icon>
+                <view class="zan_style_test">{{hui.is_huifu_zan_count}}</view>
+                <image bindtap="handleCancel3" data-id="{{hui.id}}" data-key="{{hui_list_index}}" data-user_id="{{hui.user_id}}" mode="widthFix" src="../../../style/icon/bqd.png" style="width:40px;"></image>
+            </view>
+            <view style="margin:0rpx 35rpx 0rpx 100rpx;position:relative;" wx:if="{{hui.reply_type==0}}">
+                <view style="word-break:break-all;font-size:14px;">{{hui.reply_content}}</view>
+                <image bindtap="previewHuiImage" data-index="{{hui_list_index}}" data-src="{{hui.image_part[0]}}" mode="widthFix" src="{{hui.image_part[0]}}" style="width:100px;" wx:if="{{hui.image_part[0]}}"></image>
+                <view style="font-size:14px;min-height:23px;padding:10px;background-color:#F4F4F4;" wx:if="{{hui.huifu_huifu.length>0}}">
+                    <view wx:for="{{hui.huifu_huifu}}" wx:for-item="hhh" wx:key="hhh_key">
+                        <text style="color:#4A6598;">{{hhh.user_nick_name}}</text>
+                        <text>：{{hhh.duplex_content}}</text>
+                    </view>
+                </view>
+                <view style="-webkit-transform: rotate(25deg);-moz-transform: rotate(25deg);filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=0.45);position:absolute;top:0;left:50%;opacity:0.7;" wx:if="{{hui.is_red_hui!=0&&version==0}}">
+                    <view>
+                        <image src="../../../style/icon/bg_luckybagdialog.png" style="width:100px;height:34px;border-radius:5px;"></image>
+                        <text style="font-size:14px;position:absolute;left:32%;top:13%;color:#FFE765;">已抢{{hui.is_red_hui}}</text>
+                    </view>
+                </view>
+                <view bindtap="reply_and" data-hui_id="{{hui.id}}" style="font-size:12px;margin-top:10px;">{{hui.apter_time}} ·
+          <text style="background-color:#E8E9E9;padding:3px 10px;border-radius:25px;">{{hui.huifu_count}}回复</text>
+                </view>
+            </view>
+            <view style="margin:0px 17px 0px 50px;" wx:if="{{hui.reply_type==1}}">
+                <view class="weui-cell" style="padding:0px;">
+                    <view bindtap="{{hui.is_voice==false?'ting_play':'ting_stop'}}" data-key="{{hui_list_index}}" data-vo="{{hui.reply_voice}}" style="margin-left:10px;background-color:#0099FF;color:#fff;height:40px;border-radius:25px;width:60%;">
+                        <image mode="aspectFill" src="../../../style/icon/home_yuyim.png" style="position:absolute;top:20%;left:6%;width:50rpx;height:50rpx;float:left;" wx:if="{{hui.is_voice==false}}"></image>
+                        <image mode="aspectFill" src="../../../style/icon/home_yuyim1.gif" style="position:absolute;top:20%;left:6%;width:50rpx;height:50rpx;float:left;" wx:if="{{hui.is_voice==true}}"></image>
+                        <view style="float:right;font-size:14px;margin-top:10px;margin-right:15px;">{{hui.reply_voice_time==0?1:hui.reply_voice_time}}"</view>
+                    </view>
+                </view>
+                <view style="margin-top:5px;font-size:14px;min-height:23px;padding:10px;background-color:#F4F4F4;" wx:if="{{hui.huifu_huifu.length>0}}">
+                    <view wx:for="{{hui.huifu_huifu}}" wx:for-item="hhh" wx:key="hhh_key">
+                        <text style="color:#4A6598;">{{hhh.user_nick_name}}</text>
+                        <text>：{{hhh.duplex_content}}</text>
+                    </view>
+                </view>
+                <view bindtap="reply_and" data-hui_id="{{hui.id}}" style="font-size:12px;margin-top:10px;">{{hui.apter_time}} ·
+          <text style="background-color:#E8E9E9;padding:3px 10px;border-radius:25px;">{{hui.huifu_count}}回复</text>
+                </view>
+            </view>
+            <view style="clear:both;height:0"></view>
+        </block>
+        <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+    </view>
+    <view class="weui-tabbar" style="height:2.5em;z-index:10001;" wx:if="{{select}}">
+        <view bindtap="huifu" style="height:3em;color:#999999;width:100%;padding-left:42rpx;line-height:3em;font-size:14px;">
+      说说你的想法...
+    </view>
+    </view>
+    <view animation="{{animationData}}" catchtouchmove="ture" id="huifu_height" style="width:100%;height:400px;background-color:#ffffff;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{huifu}}">
+        <view style="text-align:center;">
+            <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">回复帖子</view>
+            <image bindtap="no_huifu" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+        <i-tabs bindchange="handleChange" color="#2E77ED" current="{{current}}">
+            <i-tab key="tab1" title="图片"></i-tab>
+            <i-tab key="tab2" title="语音"></i-tab>
+            <i-tab key="tab3" title="礼物"></i-tab>
+        </i-tabs>
+        <view style="width:100%;height:60%;" wx:if="{{current=='tab1'}}">
+            <view class="weui-cell__bd" style="margin-top:20rpx;margin-left:10px;">
+                <textarea autoHeight="true" bindinput="get_text" class="weui-textarea" maxlength="140" placeholder="来吧，畅所欲言..." style="min-height:4em;" value=""></textarea>
+            </view>
+            <view class="weui-cells" style="margin-left:10px;">
+                <view class="weui-cell" style="padding:10px 0px 15px 0px;">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd" style="text-align:center">
+                                <view class="weui-uploader__files" id="uploaderFiles">
+                                    <view class="weui-uploader__file" style="margin-right:0px;margin-left:10rpx;text-align:center;width:31%;" wx:for="{{img_arr}}" wx:for-index="vido_index" wx:key="*this">
+                                        <image bindtap="previewImage" class="weui-uploader__img" data-src="{{item}}" mode="aspectFill" src="{{item}}" style="width:190rpx;height:190rpx;"></image>
+                                        <image bindtap="clearOneImage" class="" data-index="{{vido_index}}" mode="aspectFill" src="../../../style/icon/cuo.png" style="width:33px;height:33px;padding-right:16px;"></image>
+                                    </view>
+                                </view>
+                                <view class="" style="width:190rpx;height:190rpx;float:left;position:relative;margin-right:9px;margin-bottom:9px;" wx:if="{{img_botton}}">
+                                    <view bindtap="previewOneImage" class="weui-uploader__input"></view>
+                                    <image mode="widthFix" src="../../../style/icon/bpj.png" style="width:104px;"></image>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view style="width:100%;height:60%;" wx:if="{{current=='tab2'}}">
+            <view bindtap="play_hf" class="weui-cell" style="width:50%;margin:0 auto;border:1px solid #E6E9ED;margin-top:10rpx;background-color:#F7F9FA;">
+                <view style="width:100%;">
+                    <image mode="aspectFill" src="../../../style/icon/yuyin.gif" style="width:50rpx;height:50rpx;float:left;"></image>
+                    <view style="float:left;margin-left:20rpx;font-size:14px;margin-top:10rpx;">点击试听</view>
+                    <view style="float:right;font-size:14px;margin-top:10rpx;">{{file_ss}}"</view>
+                </view>
+            </view>
+            <view bindlongtap="longTap" bindtouchend="touchEnd" bindtouchstart="touchStart" style="width:80px;height:80px;margin:0 auto;border-radius:50%;text-align:center;margin-top:50rpx;">
+                <image mode="aspectFill" src="../../../style/icon/b.png" style="width:80px;height:80px;"></image>
+            </view>
+            <view style="text-align:center;font-size:12px;color:#CCCCCC;">长按讲话（最长60"）</view>
+        </view>
+        <view animation="{{animationDataLi}}" id="liwu" style="margin-top:20px;" wx:if="{{current=='tab3'}}">
+            <scroll-view scrollX="true" style="white-space: nowrap;width: 100%;display: flex;">
+                <view bindtap="liwu_index" class="liwu_col {{li_index==dataListindex?'liwu_border':''}}" data-id="{{item.id}}" data-k="{{dataListindex}}" wx:for="{{li_list}}" wx:for-index="dataListindex" wx:key="{{index}}">
+                    <image src="{{item.tr_icon}}" style="width:50px;height:50px;"></image>
+                    <view style="font-size:14px;">{{item.tr_name}}</view>
+                    <view style="font-size:12px;color:#666666;">{{item.tr_conch}}{{design.currency}}</view>
+                </view>
+            </scroll-view>
+            <view style="padding: 16px">
+                <view style="font-size:14px;color:#A7A7A7;float:left;">{{design.currency}}
+          <text style="color:#000000;">{{li_sum}}</text>
+                </view>
+                <view style="clear:both;height:0"></view>
+                <navigator hoverClass="none" url="/yl_welore/pages/packageC/user_details/index">
+                    <view style="font-size:14px;color:#A7A7A7;float:left;margin-top:10px;">我的{{design.currency}}
+            <image mode="widthFix" src="../../../style/icon/jinbi.png" style="width:20px;height:20px;vertical-align:middle;"></image>
+                        <text style="color:#000000;vertical-align:middle;">{{user_liwu.conch}}</text>
+                        <image mode="widthFix" src="../../../style/icon/chongzhi.png" style="width:40px;vertical-align:middle;margin-left:10px;" wx:if="{{version==0}}"></image>
+                    </view>
+                </navigator>
+                <i-input-number bindchange="handleChange1" iClass="{{sex==1||sex==0?'input_number_blue':'input_number_red'}}" max="99" min="1" value="{{li_number}}"></i-input-number>
+            </view>
+            <view style="clear:both;height:0"></view>
+            <button bindtap="reward" class="wx_liwu" size="default" style="color: #{{sex==1||sex==0?'2E77ED':'f759ab'}};border-radius: 2rem;border: 1px #{{sex==1||sex==0?'2E77ED':'f759ab'}} solid;box-shadow: -3px 5px 10rpx 5rpx #{{sex==1||sex==0?'2E77ED':'f759ab'}};">立即打赏</button>
+        </view>
+        <button bindtap="submit" style="background: #ffffff;color:#666666;border-radius: 2rem;border: 1px #666666 solid;box-shadow:-3px 5px  10rpx 5rpx#666666;width:150px;margin-bottom:20px;padding:0.5em;" wx:if="{{current!='tab3'}}">发布</button>
+    </view>
+    <view animation="{{animationData}}" catchtouchmove="ture" style="width:100%;height:550px;background-color:#ffffff;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{reply_and_hui}}">
+        <view style="text-align:center;">
+            <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">{{get_reply_and_info.hui_count}}条回复</view>
+            <image bindtap="no_huifu" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+        <view>
+            <view class="weui-cell">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{get_reply_and_info.user_id}}">
+                    <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <image src="{{get_reply_and_info.user_head_sculpture}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+                    </view>
+                </navigator>
+                <view class="weui-cell__bd">
+                    <view style="font-size:14px;">{{get_reply_and_info.user_nick_name}}
+          </view>
+                </view>
+            </view>
+            <view style="margin:0rpx 35rpx 10px 100rpx;">
+                <view style="word-break:break-all;font-size:14px;">{{get_reply_and_info.reply_content}}</view>
+                <image bindtap="previewHuiAndImage" data-src="{{get_reply_and_info.image_part[0]}}" mode="widthFix" src="{{get_reply_and_info.image_part[0]}}" style="height:100px;" wx:if="{{get_reply_and_info.image_part[0]}}"></image>
+            </view>
+            <view style="width:100%;border-top:0.5px solid #f9f9f9;"></view>
+            <view>
+                <view style="padding:10px 15px;font-size:14px;">全部评论</view>
+                <scroll-view scrollY bindscrolltolower="page_get_reply" style="height:350px;">
+                    <view wx:for="{{get_reply_and_list}}" wx:key="r_key">
+                        <view class="weui-cell">
+                            <navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.user_id}}">
+                                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                                    <image src="{{item.user_head_sculpture}}" style="width: 60rpx; height: 60rpx; display: block;border-radius:50rpx;"></image>
+                                </view>
+                            </navigator>
+                            <view class="weui-cell__bd">
+                                <view style="font-size:14px;">{{item.user_nick_name}}
+                </view>
+                            </view>
+                        </view>
+                        <view style="margin:0rpx 35rpx 0rpx 100rpx;">
+                            <view style="word-break:break-all;font-size:15px;" wx:if="{{item.reply_user_id==0}}">{{item.duplex_content}}</view>
+                            <view style="word-break:break-all;font-size:15px;" wx:if="{{item.reply_user_id!=0}}">
+                回复
+                <text style="color:#5273A5">{{item.hui_nick_name}}</text>: {{item.duplex_content}}
+              </view>
+                            <view bindtap="get_reply_user" data-user_id="{{item.user_id}}" data-user_name="{{item.user_nick_name}}" style="font-size:12px;margin-top:10px;">{{item.duplex_time}} · 回复</view>
+                        </view>
+                    </view>
+                    <view style="font-size:14px;text-align:center;padding:20px;color:#999999" wx:if="{{di_get_reply}}">暂无更多评论</view>
+                </scroll-view>
+            </view>
+        </view>
+        <view style="background-color:#F6F8F8;height:40px;position:fixed;bottom:0;width:100%;">
+            <input bindinput="get_reply_and_text" focus="{{focus}}" placeholder="{{placeholder_reply}}" style="height:40px;padding-left:4%;font-size:14px;width:70%;float:left" value="{{get_reply_and_text}}"></input>
+            <view bindtap="add_reply_and_hui" style="float:left;line-height:40px;width:26%;text-align:center;background-color:#00CCFF;color:#fff;">发表</view>
+        </view>
+    </view>
+    <view animation="{{animationJbData}}" style="width:100%;height:230px;background-color:#F7F7F7;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{jubao}}">
+        <view style="text-align:center;">
+            <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">我要吐槽</view>
+            <image bindtap="no_jubao" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+        <view class="weui-cell__bd" style="margin:20px;background-color:#ffffff;border-radius:6px;padding:10px;">
+            <textarea autoHeight="true" bindinput="get_jubao_text" class="weui-textarea" maxlength="300" placeholder="请具体说明问题，我们将尽快处理" style="min-height:4em;" value=""></textarea>
+        </view>
+        <button bindtap="jubao_submit" style="background: #ffffff;color:#666666;border-radius: 2rem;border: 1px #666666 solid;box-shadow:-3px 5px  10rpx 5rpx#666666;width:150px;margin-bottom:20px;padding:0.5em;">提交</button>
+    </view>
+    <view catchtouchmove="preventTouchMove" style="width:100%;height:100%;position:fixed;background-color:#999;z-index:9999;top:0;left:0;opacity:0.3;" wx:if="{{huifu}}"></view>
+    <view catchtouchmove="preventTouchMove" style="width:100%;height:100%;position:fixed;background-color:#999;z-index:9999;top:0;left:0;opacity:0.3;" wx:if="{{reply_and_hui}}"></view>
+    <view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{del_mod}}"></view>
+    <view class="modal-dialog" wx:if="{{del_mod}}">
+        <view class="modal-title">删除确认</view>
+        <view class="modal-content">
+            <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:16px;">
+        确定要删除吗？
+      </view>
+        </view>
+        <view class="modal-footer">
+            <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+            <view bindtap="del_do" class="btn-confirm" data-status="confirm">确定</view>
+        </view>
+    </view>
+    <view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{del_msg}}"></view>
+    <view class="modal-dialog" wx:if="{{del_msg}}">
+        <view class="modal-title" style="font-size:15px;">删除原因</view>
+        <view class="modal-content">
+            <textarea bindinput="is_qq_text" placeholder="请填写删除原因" style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+        </view>
+        <view class="modal-footer">
+            <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+            <view bindtap="del_do" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+        </view>
+    </view>
+    <view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{tz_del_msg}}"></view>
+    <view class="modal-dialog" wx:if="{{tz_del_msg}}">
+        <view class="modal-title" style="font-size:15px;">删除原因</view>
+        <view class="modal-content">
+            <textarea bindinput="is_qq_text" placeholder="请填写删除原因" style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+        </view>
+        <view class="modal-footer">
+            <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+            <view bindtap="del_tz_do" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+        </view>
+    </view>
+    <view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{tz_jin_msg}}"></view>
+    <view class="modal-dialog" wx:if="{{tz_jin_msg}}">
+        <view class="modal-title" style="font-size:15px;">禁言理由</view>
+        <view class="modal-content">
+            <textarea bindinput="is_qq_text" placeholder="请填写禁言理由" style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+        </view>
+        <view class="modal-footer">
+            <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+            <view bindtap="do_banned_user" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+        </view>
+    </view>
+    <view class="modal-mask" wx:if="{{set_img_quan}}"></view>
+    <view class="modal-dialog" style="top:27%;border-radius:0px;position:absolute;" wx:if="{{set_img_quan}}">
+        <view class="modal-content" id="canvas-container" style="padding:0px;height:{{imgheght}}px;width:100%;overflow:hidden;">
+            <canvas canvasId="myCanvas" style="width:100%;background-color:#ffffff;height:{{imgheght}}px;"></canvas>
+        </view>
+        <image bindtap="no_set_img_quan" mode="widthFix" src="../../../style/icon/coler.png" style="width:30px;height:30px;position:fixed;top:{{isIpx?15:11}}%;right:2%;z-index:9100;" wx:if="{{set_img_quan}}"></image>
+        <view bindtap="saveShareImg" style="z-index:9100;position:fixed;color:#fff;background-color:#2E77ED;padding:8px;left:8%;border-radius:5px;width:80%;text-align:center;bottom:3%;">保存到相册</view>
+    </view>
+    <view animation="{{animationJbData}}" style="width:100%;height:180px;background-color:#F7F7F7;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{zhuanfa}}">
+        <view style="text-align:center;">
+            <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">分享到</view>
+            <image bindtap="no_zhuanfa" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+        </view>
+        <view style="clear:both;height:0"></view>
+        <button hoverClass="none" openType="share" style="float:left;width:50%;text-align:center;margin-top:15px;">
+            <image mode="widthFix" src="../../../style/icon/icon_card_weixin___card.png" style="width:40px;height:30px;"></image>
+            <view>微信好友</view>
+        </button>
+        <button bindtap="set_img_quan" hoverClass="none" style="float:left;width:50%;text-align:center;margin-top:15px;">
+            <image mode="widthFix" src="../../../style/icon/icon_card_friend___card.png" style="width:40px;height:30px;"></image>
+            <view>朋友圈</view>
+        </button>
+    </view>
+    <i-action-sheet showCancel actions="{{actions}}" bind:cancel="handleCancel1" bind:click="handleClickItem1" visible="{{visible}}"></i-action-sheet>
+    <i-action-sheet showCancel actions="{{actions1}}" bind:cancel="handleCancel1" bind:click="handleClickItem2" visible="{{visible1}}"></i-action-sheet>
+    <i-action-sheet showCancel actions="{{actions2}}" bind:cancel="handleCancel1" bind:click="banned_user" visible="{{visible2}}"></i-action-sheet>
+</block>
+<i-toast id="toast"></i-toast>

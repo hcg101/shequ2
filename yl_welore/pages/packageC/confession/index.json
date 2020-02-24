@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "i-cell": "../../../dist/cell/index",
+        "i-panel": "../../../dist/panel/index",
+        "i-toast": "../../../dist/toast/index",
+        "i-modal": "../../../dist/modal/index",
+        "i-button": "../../../dist/button/index",
+        "i-message": "../../../dist/message/index",
+        "i-load-more": "../../../dist/load-more/index"
+    }
+}

@@ -1,0 +1,117 @@
+
+    <view class="nav-wrap" style="height: {{height*2+20}}px;">
+        <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+        <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageB/search/index">
+                <view class="nav-capsule">
+                    <view>
+                        <image class="back-pre" mode="widthFix" src="../../style/icon/soso.png" style="height:35px;width:35px;"></image>
+                    </view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+   
+<view wx:if="{{flag==1}}">
+     <view style="clear:both;height:0"></view>
+    <view style="padding-left:26rpx;color:#AFAFAF;margin-top:40rpx;margin-top:{{height*2+30}}px;">
+        <image src="../../style/icon/my_jia.png" style="width:60rpx;height:60rpx;vertical-align:middle;"></image>
+        <text style="font-size:34rpx;color:#000000;font-weight:600;">我加入的{{design.landgrave}}</text>
+        <navigator hoverClass="none" style="display:inline;" url="/yl_welore/pages/packageB/set_territory/index">
+            <view class="" style="float:right;background-color:#2e77ed;color:#ffffff;border-radius:40rpx;padding:10rpx;width:135rpx;text-align:center;font-size:11px;margin-right:24rpx;">
+                <i-icon type="add"></i-icon> 创建{{design.landgrave}}
+        </view>
+        </navigator>
+    </view>
+    <scroll-view bindscrolltolower="nex_my_qq" scrollX="true" style="white-space: nowrap;width: 100%;">
+        <view class="classify" wx:for="{{info}}" wx:key="i_key">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.id}}">
+                <view class="class_border">
+                    <image class="class_img" src="{{item.realm_icon}}"></image>
+                </view>
+                <view style="font-size:12px;margin-top:5px;">
+                    <image src="../../style/icon/mi.png" style="width:22px;height:22px;vertical-align:sub;" wx:if="{{item.attention==1}}"></image>
+                    <text style="vertical-align:text-bottom;">{{item.realm_name}}</text>
+                </view>
+                <view class="bod_qu">去{{design.landgrave}}</view>
+            </navigator>
+        </view>
+        <view class="classify" style="left:34%;" wx:if="{{!info}}">
+            <view class="class_border" style="border:0rpx;">
+                <image class="class_img" src="../../style/icon/zanwu.png"></image>
+            </view>
+            <view style="font-size:13px;margin-top:5px;">没有加入任何{{design.landgrave}}</view>
+        </view>
+    </scroll-view>
+    <view style="padding-left:26rpx;color:#AFAFAF;margin-top:20rpx;height:30px;">
+        <image src="../../style/icon/my_chang.png" style="width:60rpx;height:60rpx;vertical-align:middle;float:left;"></image>
+        <view style="font-size:34rpx;color:#000000;font-weight:600;float:left;">{{design.landgrave}}广场</view>
+        <navigator hoverClass="none" url="/yl_welore/pages/square/index">
+            <image src="../../style/icon/you.png" style="width:35rpx;height:35rpx;vertical-align:middle;float:right;margin-left:20rpx;margin-right:30rpx;margin-top:7rpx;"></image>
+            <view style="font-size:30rpx;color:#6C6C6C;margin-left:10rpx;float:right;">所有{{design.landgrave}}</view>
+        </navigator>
+    </view>
+    <scroll-view scrollX="true" style="width:100%;white-space:nowrap;height:20em;overflow:hidden;">
+        <view class="classify_nex" style="background-color:#F9FAFB;vertical-align:top;" wx:for="{{needle}}" wx:key="n_index">
+            <view class="chang_img" style="width:100%;background-image:url({{item.icon}}); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;text-align:left;line-height:76rpx;">
+                <text style="font-size:32rpx;font-weight:600;color:#ffffff;margin-left:30rpx;">{{item.name}}</text>
+            </view>
+            <view style="">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{c_item.id}}" wx:for="{{item.children}}" wx:for-item="c_item" wx:key="c_index">
+                    <view class="weui-cell" style="padding:20rpx 0rpx 10rpx 0rpx;">
+                        <view class="weui-cell__hd" style="position: relative;margin-right: 10rpx;margin-left:20rpx;">
+                            <image src="{{c_item.realm_icon}}" style="width: 45px; height: 45px;border-radius:50rpx;vertical-align:text-top;"></image>
+                        </view>
+                        <view class="course-name" style="text-align:left;">
+                            <view style="font-size:12px;">
+                                <image src="../../style/icon/mi.png" style="width:20px;height:20px;vertical-align:sub;" wx:if="{{c_item.attention==1}}"></image>
+                                <text style="vertical-align:text-bottom;">{{c_item.realm_name}}</text>
+                            </view>
+                            <view style="font-size: 11px;color: #888888;">{{c_item.concern}}人</view>
+                        </view>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </scroll-view>
+    <view style="clear:both;height:0"></view>
+    <view style="padding-left:26rpx;color:#AFAFAF;margin-top:20rpx;height:30px;">
+        <image src="../../style/icon/my_jian.png" style="width:60rpx;height:60rpx;vertical-align:middle;float:left;"></image>
+        <view style="font-size:34rpx;color:#000000;font-weight:600;float:left;">为我推荐</view>
+        <navigator hoverClass="none" url="/yl_welore/pages/square/index">
+            <image src="../../style/icon/you.png" style="width:35rpx;height:35rpx;vertical-align:middle;float:right;margin-left:20rpx;margin-right:30rpx;margin-top:7rpx;"></image>
+            <view style="font-size:30rpx;color:#6C6C6C;margin-left:10rpx;float:right;">所有{{design.landgrave}}</view>
+        </navigator>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view style="margin:20px 0px;" wx:for="{{tj_list}}" wx:for-index="t_index" wx:key="t_key">
+        <view class="weui-cell" style="padding:20rpx 0rpx 10rpx 0rpx;float:left;width:75%;">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10rpx;margin-left:20rpx;">
+                <image src="{{item.realm_icon}}" style="width: 45px; height: 45px;border-radius:50rpx;vertical-align:text-top;"></image>
+            </view>
+            <view style="text-align:left;float:left;">
+                <view>
+                    <image src="../../style/icon/mi.png" style="width:20px;height:20px;vertical-align:sub;" wx:if="{{item.attention==1}}"></image>
+            {{item.realm_name}}
+          </view>
+                <view class="course-name" style="font-size: 14px;color: #888888;">{{item.realm_synopsis}}</view>
+            </view>
+        </view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageA/circle_info/index?id={{item.id}}">
+            <view class="" style="float:right;background-color:#2e77ed;color:#ffffff;border-radius:40rpx;padding:10rpx;width:135rpx;text-align:center;font-size:22rpx;margin-top:20px;margin-right:24rpx;">
+          去{{design.landgrave}}
+        </view>
+        </navigator>
+        <view style="clear:both;height:0"></view>
+        <view style="height:50px;" wx:if="{{tj_list.length==1}}"></view>
+    </view>
+    <i-toast id="toast"></i-toast>
+    <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+    <view style="height:50px;" wx:if="{{di_msg}}"></view>
+</view>
+<view wx:if="{{flag==0}}">
+ <view bindtap="gonav" style="margin-top:200rpx;text-align:center" wx:if="{{!flag}}">
+    暂无数据,请<text style="color:#1296db">登录</text>
+</view>
+</view>
+<tabbar tabbar="{{tabbar}}"></tabbar>

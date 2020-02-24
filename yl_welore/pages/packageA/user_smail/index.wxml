@@ -1,0 +1,66 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-top:{{height*2+20}}px;">
+    <view bindtap="get_all_mod" style="float:right;margin-right:20px;margin-top:10px;background-color:#3CB87F;color:#fff;font-size:12px;padding:5px 10px;border-radius:17px;">全部标为已读</view>
+    <view style="clear:both;height:0"></view>
+    <view style="padding:10px 20px 5px 20px" wx:for="{{my_list}}" wx:key="m_key">
+        <view style=";line-height:20px;">
+            <image src="../../../style/icon/admin.png" style="width:40px;height:40px;border-radius:50%;float:left;margin-right:10px;"></image>
+            <view style="font-size:14px;">系统消息</view>
+            <view style="font-size:13px;color:#999;">{{item.clue_time}}</view>
+        </view>
+        <view style="padding:10px 20px 0px 50px;font-size:14px;">
+      {{item.maring}}
+    </view>
+        <view style="padding:5px 20px 0px 50px;float:left;">
+            <image data-id="{{item.id}}" src="../../../style/icon/yidu.png" style="width:40px;height:24px;" wx:if="{{item.status==1}}"></image>
+            <image bindtap="up_user_smail" data-id="{{item.id}}" src="../../../style/icon/weidu.png" style="width:40px;height:20px;" wx:if="{{item.status==0}}"></image>
+        </view>
+        <view style="padding:5px 20px 0px 60px;float:right;">
+            <image bindtap="del_user_smail" data-id="{{item.id}}" src="../../../style/icon/laji.png" style="width:20px;height:20px;"></image>
+        </view>
+        <view></view>
+        <view style="clear:both;height:0"></view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{del_mod}}"></view>
+<view class="modal-dialog" wx:if="{{del_mod}}">
+    <view class="modal-title">删除确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:13px;">
+      确定要删除吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="del_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{bj_mod}}"></view>
+<view class="modal-dialog" wx:if="{{bj_mod}}">
+    <view class="modal-title">标记确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:13px;">
+      确定要全部标记为已读吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="get_all" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view class="classify" style="left:34%;" wx:if="{{my_list.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:13px;margin-top:5px;color:#000;">没有任何信息</view>
+</view>
+<i-toast id="toast"></i-toast>

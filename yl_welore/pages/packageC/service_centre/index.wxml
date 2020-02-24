@@ -1,0 +1,46 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<view style="width:91%;padding:20px;">
+    <view class="weui-flex">
+        <view class="weui-flex__item" style="text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageC/confession/index">
+                <view class="placeholder">
+                    <image mode="widthFix" src="../../../style/icon/jy.png" style="width:30px;"></image>
+                </view>
+            </navigator>
+            <view style="color:#999999;font-size:14px;">禁言申诉</view>
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageC/delete_posts/index">
+                <view class="placeholder">
+                    <image mode="widthFix" src="../../../style/icon/hsz.png" style="width:30px;"></image>
+                </view>
+            </navigator>
+            <view style="color:#999999;font-size:14px;">删帖回收站</view>
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+            <navigator hoverClass="none" url="/yl_welore/pages/packageC/user_report/index">
+                <view class="placeholder">
+                    <image mode="widthFix" src="../../../style/icon/jingbao.png" style="width:30px;"></image>
+                </view>
+            </navigator>
+            <view style="color:#999999;font-size:14px;">举报投诉记录</view>
+        </view>
+    </view>
+</view>
+<view style="width:100%;height:5px;background-color:#F7F7FA;"></view>
+<view style="width:100%;margin:20px;color:#999999">疑问解答</view>
+<i-cell isLink title="{{item.trouble}}" url="/yl_welore/pages/packageC/help_info/index?id={{item.id}}" wx:for="{{info}}" wx:key="k_key"></i-cell>
+<button bindtap="submit" hoverClass="none" openType="contact" style="padding-right:13px;text-align:left;padding-left:15px;font-size:14px;width:100%;height:48px;line-height:48px;">在线客服
+  <image class="xwcms" src="../../../style/icon/fanhui.png" style="float:right;width:13px;height:13px;opacity:0.2;margin-top:16px;"></image>
+</button>
+<button bindtap="submit" hoverClass="none" openType="feedback" style="padding-right:13px;text-align:left;padding-left:15px;font-size:14px;width:100%;height:48px;line-height:48px;">意见反馈
+  <image class="xwcms" src="../../../style/icon/fanhui.png" style="float:right;width:13px;height:13px;opacity:0.2;margin-top:16px;"></image>
+</button>
+<i-toast id="toast"></i-toast>

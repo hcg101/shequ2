@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+        "i-toast": "../../../dist/toast/index",
+        "i-modal": "../../../dist/modal/index",
+        "i-button": "../../../dist/button/index",
+        "i-message": "../../../dist/message/index",
+        "i-icon": "../../../dist/icon/index",
+        "i-load-more": "../../../dist/load-more/index"
+    }
+}

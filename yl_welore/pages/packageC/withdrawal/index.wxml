@@ -1,0 +1,77 @@
+<view class="nav-wrap" style="background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;color:#ffffff;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/w_back.png"></image>
+            </view>
+        </view>
+    </view>
+    <view style="width:100%;margin-top:{{height}}px;"></view>
+    <view style="width:100%;min-height:90px;margin:0px auto;color:#4481eb;font-size:14px;">
+        <view class="weui-flex" style="background-color:#fff;width:90%;margin:0px auto;border-radius:5px;height:60px;">
+            <view class="weui-flex__item">
+                <view class="placeholder">
+                    <image mode="widthFix" src="../../../style/icon/qianbao.png" style="width:30px;vertical-align:sub;"></image>
+                    <text style="margin-left:5px;vertical-align:super;">我的钱包</text>
+                </view>
+            </view>
+            <view class="weui-flex__item">
+                <view class="placeholder">
+                    <image mode="widthFix" src="../../../style/icon/zhuanzhang.png" style="width:20px;vertical-align:sub;"></image>
+                </view>
+            </view>
+            <view class="weui-flex__item">
+                <view class="placeholder" wx:if="{{setting.open_offline_payment==0}}">
+                    <image mode="widthFix" src="../../../style/icon/lingqian.png" style="width:20px;vertical-align:sub;"></image>
+                    <text style="margin-left:5px;">微信零钱</text>
+                </view>
+                <view class="placeholder" wx:if="{{setting.open_offline_payment==1}}">
+                    <image mode="widthFix" src="../../../style/icon/yinhangka.png" style="width:25px;vertical-align:sub;"></image>
+                    <text style="margin-left:5px;vertical-align:super;">支付宝</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="background-color:#ffffff;padding-top:10px;">
+    <view style="font-size:16px;margin-left:15px;color:#4481eb">
+        <text style="font-size:14px;color:#999999;">可用余额：{{setting.user_info.conch}}，最低提现额度：{{setting.lowest_money}}，提现将会扣除提现金额的{{setting.payment_tariff*100}}%作为手续费。</text>
+    </view>
+    <view style="color:#4481eb">
+        <text style="float:left;font-size:40px;margin-left:10px;">￥</text>
+        <input bindinput="get_money" focus="true" maxlength="10" placeholder="整数金额" style="padding-left:10px;border-bottom:1px #F1F1F1 solid;float:left;width:82%;font-size:20px;height:43px;margin-top:7px;" type="number" value="{{withdraw_money}}"></input>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <view style="color:#4481eb" wx:if="{{setting.open_offline_payment==1}}">
+        <i-icon iClass="icon_float" size="40" type="barrage_fill"></i-icon>
+        <input bindinput="get_withdraw_card" focus="true" placeholder="支付宝帐号" style="padding-left:10px;border-bottom:1px #F1F1F1 solid;width:82%;font-size:20px;height:43px;margin-top:7px;" type="text" value="{{withdraw_number}}"></input>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageC/notice/index">
+        <view style="width:95%;text-align:center;padding:10px;color:#5197E4;font-size:14px;">
+      提现说明
+    </view>
+    </navigator>
+</view>
+<navigator hoverClass="none" url="/yl_welore/pages/packageC/withdrawal_list/index">
+    <view style="margin-top:20px;color:#000000;font-size:12px;text-align:center;">
+        <i-icon type="prompt"></i-icon> 提现明细
+  </view>
+</navigator>
+<button bindtap="withdraw" style="width:80%;height:40px;line-height:40px;border-radius:50px;margin-top:30px;background-color:#FF9933;color:#fff;">确定</button>
+<i-toast id="toast"></i-toast>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{withdraw}}"></view>
+<view class="modal-dialog" wx:if="{{withdraw}}">
+    <view class="modal-title">提现确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:13px;">
+      确定要提现吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="withdraw_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<wxs module="filters" src="tofix.wxs" />

@@ -1,0 +1,16 @@
+<view class="page">
+    <view class="wx_user_login_box">
+        <view class="wx_user_face" style="">
+            <image src="{{copyright.sgraph}}" style="height:100px;width:100px;border-radius:50%;"></image>
+        </view>
+        <view class="wx_user_face" style="width:100%">
+            <text style="font-size:15px;">你需要小程序提供以下权限即可继续操作</text>
+        </view>
+        <view class="wx_login_info">
+            <text style="font-size:28rpx;">·获得你的公开信息（昵称，头像等）</text>
+        </view>
+        <button bindgetuserinfo="onGotUserInfo" class="wx_user_login_a" lang="zh_CN" openType="getUserInfo" style="width:200px;">授权微信账号登录</button>
+
+         <button bindtap="closeAuth" style="width: 200px;margin-top: 20rpx;color: #a1a2a3;border: 1px #a1a2a3 solid;" class="wx_user_login_a" lang="zh_CN"  >取消微信账号授权</button>
+    </view>
+</view>

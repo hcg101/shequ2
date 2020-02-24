@@ -1,0 +1,6 @@
+.wx_user_login_a {
+    width: 88%;
+    background: #fff;
+    color: #1296db;
+    border: 1px #1296db solid;
+}

@@ -1,0 +1,5 @@
+<view class="container">
+    <view class="pageH5">
+        <web-view src="{{url}}"></web-view>
+    </view>
+</view>

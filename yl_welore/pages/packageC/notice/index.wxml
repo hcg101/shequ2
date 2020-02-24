@@ -1,0 +1,12 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<import src="../../../util/wxParse/wxParse.wxml"></import>
+<view style="width:91%;padding:20px;">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+</view>

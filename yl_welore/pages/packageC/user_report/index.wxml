@@ -1,0 +1,47 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/fanhui.png"></image>
+        </view>
+    </view>
+</view>
+<i-tabs bindchange="handleChange" color="#000" current="{{current}}" iClass="yes_pos">
+    <i-tab key="tab1" title="帖子"></i-tab>
+    <i-tab key="tab2" title="回复"></i-tab>
+</i-tabs>
+<view style="width:91%;padding:0px 20px;">
+    <block wx:for="{{info}}" wx:key="i_key">
+        <view class="weui-panel__bd" wx:if="{{item.tale_type==0}}">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.paper.study_title==''?item.paper.study_content:item.paper.study_title}}</view>
+                <view class="weui-media-box__desc">{{item.tale_content}}</view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">{{item.realm_name}}</view>
+                    <view class="weui-media-box__info__meta">{{item.petition_time}}</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF6633" wx:if="{{item.paper.whether_type!=0}}">{{item.paper.whether_reason}}</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF6633" wx:if="{{item.paper.whether_type==0&&item.paper.study_status==2}}">帖子被打回</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel__bd" wx:if="{{item.tale_type==1}}">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.paper.study_title==''?item.paper.study_content:item.paper.study_title}}</view>
+                <view class="weui-media-box__desc">{{item.tale_content}}</view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">{{item.realm_name}}</view>
+                    <view class="weui-media-box__info__meta">{{item.petition_time}}</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF6633" wx:if="{{item.paper.whether_type!=0}}">{{item.paper.whether_reason}}</view>
+                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color:#FF6633" wx:if="{{item.paper.whether_type==0&&item.acceptance_status==0}}">正在核查</view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="classify" style="left:35%;" wx:if="{{info.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:14px;margin-top:5px;">没有被删的帖子</view>
+</view>
+<i-toast id="toast"></i-toast>

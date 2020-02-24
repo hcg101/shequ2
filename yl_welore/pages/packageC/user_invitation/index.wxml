@@ -1,0 +1,39 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;background-color:#FFC80B;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;color:#fff;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view bindtap="_navback" class="nav-capsule">
+            <image class="back-pre" mode="aspectFill" src="../../../style/icon/w_back.png"></image>
+        </view>
+    </view>
+</view>
+<view>
+    <image mode="widthFix" src="../../../style/icon/1033914-20180419150322109-1754886203.png" style="width:100%;"></image>
+</view>
+<view style="text-align:center;">
+  我的邀请码
+</view>
+<view style="text-align:center;padding:20px 0px;font-size:40px;font-weight:700;letter-spacing:1px;">
+  {{code}}
+</view>
+<view style="text-align:center;">
+    <input bindinput="get_yzm_text" placeholder="输入好友验证码" placeholderClass="pp_class" style="font-size:25px;font-weight:700;background-color:#F5F5F5;padding:10px;border-radius:30px;width:235px;margin:0 auto;" type="text" value="{{yzm_text}}"></input>
+    <view style="text-align:center;font-size:12px;color:#999999;margin-top:5px;">
+    输入朋友邀请码,朋友和你都能获得{{design.confer}}奖励
+  </view>
+    <view bindtap="add_user_invitation" style="background-image: linear-gradient(to right, #FFDF01 0%, #FFCA0A 100%);box-shadow: 0px 0px 10px 0px #FFCA0A;color:#fff;padding:10px;border-radius:30px;width:20%;margin:20px auto;">提交</view>
+</view>
+<button bindgetuserinfo="img_quan" hoverClass="none" openType="getUserInfo" style="text-align:center;">
+    <image src="../../../style/icon/icon_card_friend___card.png" style="width:70px;height:70px;"></image>
+</button>
+<view style="text-align:center;margin:10px 0px;">
+  生成海报
+</view>
+<view class="modal-mask" wx:if="{{set_img_quan}}"></view>
+<view class="modal-dialog" style="top:27%;border-radius:0px;position:absolute;" wx:if="{{set_img_quan}}">
+    <view class="modal-content" id="canvas-container" style="padding:0px;width:100%;">
+        <canvas canvasId="myCanvas" style="width:100%;background-color:#ffffff;height:500px;"></canvas>
+    </view>
+    <image bindtap="no_set_img_quan" mode="widthFix" src="../../../style/icon/coler.png" style="width:30px;height:30px;position:fixed;top:{{isIpx?15:11}}%;right:2%;z-index:9100;" wx:if="{{set_img_quan}}"></image>
+    <view bindtap="saveShareImg" style="z-index:9999;position:fixed;color:#000;background-color:#FFE200;padding:8px;left:8%;border-radius:30px;width:80%;text-align:center;bottom:3%;">保存到相册</view>
+</view>
+<i-toast id="toast"></i-toast>

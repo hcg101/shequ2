@@ -1,0 +1,71 @@
+ <view wx:if="{{flag==1}}">  
+<view class="get_page">
+    <view class="nav-wrap" style="height: {{height*2+20}}px;">
+        <view class="nav-title" style="line-height: {{height*2+44}}px;color:#fff;">{{title?title:'商城'}}</view>
+        <view wx:if="{{flag==1}}" style="justify-content: space-around;flex-direction: column;height:100%;position:absolute;top:0;">
+            <view class="nav-capsule" style="margin-top:{{isIpx==true?54:30}}px;">
+                <view style="">
+                    <image class="back-pre" mode="aspectFill" src="../../style/icon/jinbi.png" style="float:left;"></image>
+                    <view style="float:left;font-size:12px;margin-top:11rpx;margin-left:5px;">{{user.conch}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    
+        <i-tabs scroll bindchange="handleChangeScroll" color="#fff" current="{{current_scroll}}" iClass="back">
+            <i-tab iClass="font_color" key="{{t_index}}" title="{{item.name}}" wx:for="{{type_list}}" wx:for-index="t_index" wx:key="t_key"></i-tab>
+        </i-tabs>
+        <view class="weui-tab__panel" style="padding-top:10px;min-height:37em;margin-bottom:50px;">
+            <block wx:for="{{shop_list}}" wx:key="s_key">
+                <view style="margin:20px;width:90%;height:100%;position:relative;">
+                    <navigator hoverClass="none" url="/yl_welore/pages/packageA/good_info/index?id={{item.id}}">
+                        <view style="height:6em;width:6em;background-color:#fff;border-radius:7px;position:absolute;top:10px;box-shadow: 0px 0px 10px 0px rgba(245,245,245, 1);">
+                            <image mode="aspectFit" src="{{item.product_img[0]}}" style="width:4em;height:4em;padding:1em;"></image>
+                            <image mode="widthFix" src="../../style/icon/icon_coupon_special_tag_yellow_88_88.png" style="width:4em;position:absolute;left:0px;" wx:if="{{item.noble_exclusive==1}}"></image>
+                        </view>
+                        <view style="height:7.5em;background-color:#fff;border-radius:7px;width:90%;float:right;box-shadow: 0px 0px 10px 0px rgba(245,245,245, 1);">
+                            <view style="border-radius:5px;padding:1px 5px;font-size:12px;float:left;margin-left:25%;margin-top:10px;color:#fff;background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);" wx:if="{{item.open_discount==1}}">
+                  会员{{item.noble_discount*10}}折
+                </view>
+                            <view class="course-name" style="margin-top:8px;padding-right:10px;margin-left:{{item.open_discount==1?0:25}}%">
+                  {{item.product_name}}
+                </view>
+                            <view class="course-name_tow" style="margin-left:25%;font-size:12px;color:#999999;padding-right:10px;">
+                  {{item.product_synopsis}}
+                </view>
+                            <view style="margin-left:25%;margin-top:15px;float:left;">
+                                <view style="color:#E9606E;font-weight:700;">
+                                    <image mode="widthFix" src="../../style/icon/jinbi.png" style="width:20px;height:20px;vertical-align:sub;"></image>
+                                    <text wx:if="{{item.open_discount==1}}">{{filters.toFix(item.product_price*item.noble_discount)}}</text>
+                                    <text wx:if="{{item.open_discount==0}}">{{item.product_price}}</text>
+                                    <text style="font-size:12px;color:#999;margin-left:10px;font-weight:normal;" wx:if="{{item.open_discount==1}}">￥{{item.product_price}}</text>
+                                </view>
+                            </view>
+                            <view style="float:right;margin-top:15px;font-size:10px;color:#fff;background-color:#e9606e;padding:5px 15px;box-shadow: 0px 0px 10px 0px rgba(233,96,110,1);border-radius:30px; letter-spacing:0.5px;margin-right:15px;">
+                  查看详情
+                </view>
+                        </view>
+                    </navigator>
+                </view>
+                <view style="clear:both;height:0"></view>
+            </block>
+            <view class="classify" style="left:32%;" wx:if="{{di_msg}}">
+                <view class="class_border" style="border:0rpx;">
+                    <image class="class_img" src="../../style/icon/zanwu.png"></image>
+                </view>
+                <view style="font-size:13px;color:#fff;">暂时没有更多信息了</view>
+            </view>
+        </view>
+        <i-toast id="toast"></i-toast>
+   
+    
+   
+</view>
+</view>
+ <view wx:if="{{flag==0}}">
+         <view bindtap="gonav" style="margin-top:200rpx;text-align:center" wx:if="{{!flag}}">
+            暂无数据,请<text style="color:#1296db">登录</text>
+        </view>
+    </view>
+<tabbar tabbar="{{tabbar}}"></tabbar>
+<wxs module="filters" src="tofix.wxs" />

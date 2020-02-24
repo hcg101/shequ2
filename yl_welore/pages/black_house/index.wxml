@@ -1,0 +1,20 @@
+<view class="page">
+    <view class="wx_user_login_box">
+        <view class="wx_user_face" style="">
+            <icon size="93" type="warn"></icon>
+        </view>
+        <view class="wx_user_face" style="width:100%">
+            <text style="font-size:48rpx;color:#F76260">小黑屋</text>
+        </view>
+        <view class="wx_login_info" style="padding-bottom:1em;">
+            <text style="font-size:28rpx;color:#999999">您被管理员禁止访问该小程序</text>
+        </view>
+        <view class="wx_login_info" style="padding-bottom:1em;">
+            <text selectable="true" style="font-size:28rpx;color:#999999;">ID：{{user_info.user_wechat_open_id}}</text>
+        </view>
+        <view class="wx_login_info" style="padding-bottom:1em;">
+            <text selectable="true" style="font-size:28rpx;color:#999999">原因：{{user_info.forbid_prompt}}</text>
+        </view>
+        <button class="wx_user_login" openType="contact" style="width:400rpx;">点击联系管理员</button>
+    </view>
+</view>

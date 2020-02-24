@@ -1,0 +1,65 @@
+<view class="nav-wrap" style="">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="clear:both;height:0"></view>
+<form bindreset="formReset" bindsubmit="formSubmit">
+    <view style="padding:30rpx;">
+        <input class="weui-input" maxlength="14" name="qq_name" placeholder="填写名称" style="font-size:16px;width:95%;font-weight:600;color:#000;"></input>
+        <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">1. 名称不超过14个汉字，限汉字、字母、数字和下划线。</view>
+        <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">2. 名称不能与已有名称重复。</view>
+        <view class="weui-cells__tips" style="padding-right:0px;font-size:13px;">3. 名称不能包含“医疗机构、具有药用性产品名、股票期货彩票”等金融信息。</view>
+        <picker bindchange="needleChange" range="{{needle}}" rangeKey="name" style="height:2.5em;line-height:2.5em;" value="{{needle_index}}">
+            <view class="weui-select weui-select_in-select-after" style="border-right:0px;">{{needle[needle_index].name}}</view>
+        </picker>
+        <view class="weui-cells__tips" style="font-size:13px;">4.上方选择类型</view>
+        <view class="" style="background-color:#ffffff;margin-top:20px;">
+            <textarea class="weui-textarea" maxlength="140" name="qq_content" placeholder="填写简介,不超过140个字" style="height:110px;padding:10px;width:95%;border:1px #F6F6F6 solid;border-radius:6px;" value=""></textarea>
+        </view>
+        <view class="weui-cells" style="margin-left:10px;">
+            <view class="weui-cell" style="padding:10px 0px 15px 0px;">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd" style="text-align:center">
+                            <view class="weui-uploader__files" id="uploaderFiles">
+                                <view class="weui-uploader__file" style="margin-right:0px;margin-left:10rpx;text-align:center;width:31%;" wx:for="{{img_arr}}" wx:for-index="vido_index" wx:key="*this">
+                                    <image bindtap="previewImage" class="weui-uploader__img" data-src="{{item}}" mode="aspectFill" src="{{item}}" style="width:190rpx;height:190rpx;"></image>
+                                    <image bindtap="clearOneImage" class="" data-index="{{vido_index}}" mode="aspectFill" src="../../../style/icon/cuo.png" style="width:33px;height:33px;padding-right:16px;"></image>
+                                </view>
+                            </view>
+                            <view class="" style="width:190rpx;height:190rpx;float:left;position:relative;margin-right:9px;margin-bottom:9px;" wx:if="{{img_botton}}">
+                                <view bindtap="previewOneImage" class="weui-uploader__input"></view>
+                                <image mode="widthFix" src="../../../style/icon/bpj.png" style="width:104px;"></image>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells__tips">5.上传一张头像(建议正方形图片)</view>
+        <view class="" style="background-color:#ffffff;margin-top:20px;">
+            <textarea class="weui-textarea" maxlength="140" name="qq_apply" placeholder="填写申请原因,不超过140个字" style="height:110px;padding:10px;width:95%;border:1px #F6F6F6 solid;border-radius:6px;" value=""></textarea>
+        </view>
+        <i-cell title="是否申请{{design.qq_name}}主">
+            <i-switch bind:change="onChange" size="small" slot="footer" value="{{this_qz}}">
+                <view slot="open">是</view>
+                <view slot="close">否</view>
+            </i-switch>
+        </i-cell>
+        <i-cell title="是否开启{{design.landgrave}}权限">
+            <i-switch bind:change="onChange_qx" size="small" slot="footer" value="{{this_qx}}">
+                <view slot="open">是</view>
+                <view slot="close">否</view>
+            </i-switch>
+        </i-cell>
+        <view class="weui-cells__tips">说明：只有加入{{design.landgrave}}的人才可以看到{{design.landgrave}}里发布的内容，加入{{design.landgrave}}，需要通过{{design.landgrave}}管理员审核</view>
+        <button class="add_submit" disabled="{{is_submit}}" formType="submit" style="width:150px;margin-bottom:20px;margin-top:20px;">提交申请</button>
+    </view>
+</form>
+<i-toast id="toast"></i-toast>

@@ -1,0 +1,13 @@
+{
+    "usingComponents": {
+        "i-toast": "../../../dist/toast/index",
+        "i-panel": "../../../dist/panel/index",
+        "i-modal": "../../../dist/modal/index",
+        "i-button": "../../../dist/button/index",
+        "i-message": "../../../dist/message/index",
+        "i-tabs": "../../../dist/tabs/index",
+        "i-tab": "../../../dist/tab/index",
+        "i-input-number": "../../../dist/input-number/index",
+        "i-load-more": "../../../dist/load-more/index"
+    }
+}

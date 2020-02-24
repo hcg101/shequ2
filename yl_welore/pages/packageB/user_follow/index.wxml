@@ -1,0 +1,32 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="{{isIpx==true?'margin-top:100rpx':''}}">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="margin-left:26px;font-weight:700;font-size:14px;margin-top:20px;">{{uid!=id?'他/她':'我'}}{{nvabarData.title}}{{num}}人</view>
+<navigator hoverClass="none" url="/yl_welore/pages/packageB/my_home/index?id={{item.id}}" wx:for="{{info}}" wx:key="i_key">
+    <view class="weui-cell">
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <image src="{{item.user_head_sculpture}}" style="width: 50px; height: 50px; display: block;border-radius:50rpx;"></image>
+        </view>
+        <view class="weui-cell__bd">
+            <view style="font-size:24rpx;">{{item.user_nick_name}}
+          <image src="../../../style/icon/man.png" style="width:15px;height:15px;vertical-align:sub;" wx:if="{{item.gender==1||item.gender==0}}"></image>
+                <image src="../../../style/icon/wuman.png" style="width:15px;height:15px;vertical-align:sub;" wx:if="{{item.gender==2}}"></image>
+            </view>
+            <view class="text_num" style="font-size: 13px;color: #888888;">{{item.autograph}}</view>
+        </view>
+    </view>
+</navigator>
+<view class="classify" style="left:34%;" wx:if="{{info.length==0}}">
+    <view class="class_border" style="border:0rpx;">
+        <image class="class_img" src="../../../style/icon/zanwu.png"></image>
+    </view>
+    <view style="font-size:13px;margin-top:5px;">{{msg}}</view>
+</view>
+<i-toast id="toast"></i-toast>

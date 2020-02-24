@@ -1,0 +1,309 @@
+<view class="nav-wrap" style="background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);border-bottom-left-radius:10%;border-bottom-right-radius:10%;">
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule" style="margin-top:{{isIpx?56:30}}px">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/w_back.png"></image>
+            </view>
+        </view>
+    </view>
+    <view style="text-align:center;">
+        <image src="{{user_info.user_head_sculpture}}" style="width:110rpx;height:110rpx;border-radius:100rpx;"></image>
+        <view style="color:#ffffff;font-size:34rpx;">{{user_info.user_nick_name}}
+      <image src="../../../style/icon/vip.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{user_info.is_vip==1}}"></image>
+            <image src="../../../style/icon/man.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{user_info.gender==1||user_info.gender==0}}"></image>
+            <image src="../../../style/icon/wuman.png" style="width:35rpx;height:35rpx;vertical-align:sub;" wx:if="{{user_info.gender==2}}"></image>
+        </view>
+    </view>
+    <view style="text-align:center;margin-top:20px;">
+        <view style="width:60%;margin:0 auto;text-align:center;color:#ffffff;">
+            <view class="weui-flex">
+                <view class="weui-flex__item">
+                    <navigator hoverClass="none" url="/yl_welore/pages/packageB/user_trailing/index?id={{id}}">
+                        <text style="font-size:18px;">{{user_info.trailing}}</text> {{design.landgrave}}
+          </navigator>
+                </view>
+                <view class="weui-flex__item">
+                    <navigator hoverClass="none" url="/yl_welore/pages/packageB/user_follow/index?id={{id}}&type=1">
+                        <text style="font-size:18px;">{{user_info.user_track}}</text> 关注
+          </navigator>
+                </view>
+                <view class="weui-flex__item">
+                    <navigator hoverClass="none" url="/yl_welore/pages/packageB/user_follow/index?id={{id}}&type=2">
+                        <text style="font-size:18px;">{{user_info.user_fs}}</text> 粉丝
+          </navigator>
+                </view>
+            </view>
+        </view>
+        <view style="color:#fff;font-size:12px;word-break:break-all;margin:10px;">{{user_info.autograph}}</view>
+    </view>
+    <view style="text-align:center;margin-top:20px;padding-bottom:20px;">
+        <view style="width:60%;margin:0 auto;text-align:center;color:#ffffff;">
+            <view class="weui-flex">
+                <view bindtap="cancel" class="weui-flex__item" style="text-align:center;" wx:if="{{user_info.is_user==0&&user_info.id!=uid}}">
+                    <view style="margin-right:5px;color:#ffffff;font-size:14px;background-color:#FF796C;padding:5px 10px;text-align:center;border-radius:30px;">
+                        <i-icon size="20" type="add"></i-icon>关注</view>
+                </view>
+                <view bindtap="cancel" class="weui-flex__item" style="text-align:center;" wx:if="{{user_info.is_user==1&&user_info.id!=uid}}">
+                    <view style="margin-right:5px;color:#000000;font-size:14px;background-color:#F0F0F0;padding:5px 10px;text-align:center;border-radius:30px;">
+                        <i-icon size="18" type="close"></i-icon>取消关注</view>
+                </view>
+                <view class="weui-flex__item" style="text-align:center;" wx:if="{{user_info.id==uid}}">
+                    <navigator hoverClass="none" url="/yl_welore/pages/packageB/edit_user_info/index">
+                        <view style="margin-left:5px;color:#000;font-size:14px;background-color:#fff;padding:5px 10px;text-align:center;border-radius:30px;">
+              编辑资料</view>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+    <image bindtap="guard" mode="widthFix" src="../../../style/icon/beauty_live_icon_bill_bg.png" style="width:80px;vertical-align:sub;position:absolute;top:55px;right:22px;"></image>
+</view>
+<i-tabs bindchange="handleChange" color="#000000" current="{{current}}" iClass="yes_pos">
+    <i-tab key="tab1" title="动态"></i-tab>
+    <i-tab key="tab2" title="待审核" wx:if="{{id==uid}}"></i-tab>
+</i-tabs>
+<view wx:if="{{current=='tab1'}}" wx:for="{{new_list}}" wx:for-index="new_index" wx:key="n_key">
+    <view style="margin:20px;float:left;">
+        <view style="font-size:18px;width:37px;text-align:center;">
+      {{item.day}}
+    </view>
+        <view style="font-size:12px;width:40px;text-align:center;">
+      {{item.month}}
+    </view>
+    </view>
+    <view style="{{li_index!=0?'padding-left:82px;':''}}border-bottom:1px solid #F6F8F8;" wx:for="{{item.list}}" wx:for-index="li_index" wx:for-item="li" wx:key="l_key">
+        <view style="margin:24px 20px;float:left;width:230px;">
+            <view style="font-size:12px;color:#9D9D9D">
+        {{li.realm_name}}
+      </view>
+            <view bindtap="purchase_paper" data-id="{{li.id}}" data-index="{{li_index}}" data-money="{{li.buy_price}}" data-one="{{new_index}}" wx:if="{{li.is_buy==1&&li.purchase==0&&li.user_id!=uid&&admin==0}}">
+                <view class="weui-cell" style="padding:0rpx 10px 10px 0px;">
+                    <view class="weui-cell__hd text_num" style="word-break:break-all;position: relative;color:{{li.study_title_color}};font-size:16px;">
+            {{li.study_title}}
+          </view>
+                </view>
+                <view style="position:relative;margin:0 auto;width:80%;height:100px;z-index:100;overflow:hidden;border-radius:10px;font-size:14px;">
+                    <image mode="scaleToFill" src="../../../style/icon/a84.jpg" style="width:100%;height:100%;"></image>
+                    <view style="color:#fff;position:absolute;text-align: center;left: 0;right: 0;top:16%;">本帖被主人设置为付费帖</view>
+                    <view style="color:#fff;position:absolute;text-align: center;left: 0;right: 0;top:43%;">需要支付{{li.buy_price}}{{design.confer}}查看</view>
+                    <view style="color:#fff;position:absolute;text-align: center;left: 0;right: 0;bottom:0;">
+                        <image src="../../../style/icon/suo.png" style="width:25px;height:25px;"></image>
+                    </view>
+                </view>
+            </view>
+            <block wx:if="{{li.study_type==0}}">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{li.id}}&type={{li.study_type}}" wx:if="{{li.is_buy!=1||li.purchase==1||li.user_id==uid||admin==1}}">
+                    <view class="text_num" style="font-size:15px;">
+            {{li.study_title==''?li.study_content:li.study_title}}
+          </view>
+                    <view style="overflow:hidden;" wx:if="{{li.image_part}}">
+                        <view style="width:{{li.image_length}}%;float:left;text-align:center;padding-left:5px;" wx:for="{{li.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                            <image bindtap="previewImage" lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:140px;border-radius:10px;" wx:if="{{img_index==0||img_index==1||img_index==2}}"></image>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+            <block wx:if="{{li.study_type==1}}">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{li.id}}&type={{li.study_type}}" wx:if="{{li.is_buy!=1||li.purchase==1||li.user_id==uid}}">
+                    <view class="text_num" style="font-size:15px;">
+            {{li.study_title==''?li.study_content:li.study_title}}
+          </view>
+                    <view class="weui-cell" style="padding:0px;">
+                        <view style="background-image: linear-gradient(to right, #434343 0%, black 100%);color:#fff;height:40px;border-radius:25px;width:75%;">
+                            <image mode="aspectFill" src="../../../style/icon/home_yuyim.png" style="position:absolute;top:20%;left:3%;width:50rpx;height:50rpx;float:left;"></image>
+                            <view style="float:right;font-size:14px;margin-top:10px;margin-right:15px;">{{li.study_voice_time==0?1:li.study_voice_time}}"</view>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+            <block wx:if="{{li.study_type==2}}">
+                <navigator hoverClass="none" url="/yl_welore/pages/packageA/article/index?id={{li.id}}&type={{li.study_type}}" wx:if="{{li.is_buy!=1||li.purchase==1||li.user_id==uid}}">
+                    <view class="text_num" style="font-size:15px;">
+            {{li.study_title==''?li.study_content:li.study_title}}
+          </view>
+                    <view class="weui-cell" style="{{li.image_part.length==null?'height:130px;':''}}overflow:hidden;margin:0 auto;">
+                        <image src="../../../style/icon/home_bf.png" style="width:35px;height:35px;position:absolute;left:44%;"></image>
+                        <image mode="aspectFill" src="{{li.image_part[0]}}" style="height:140px;margin:0 auto;border-radius:10px;" wx:if="{{li.image_part.length>0}}"></image>
+                        <image mode="aspectFill" src="../../../style/icon/a84.jpg" style="height:140px;margin:0 auto;border-radius:10px;" wx:if="{{li.image_part.length==null}}"></image>
+                    </view>
+                </navigator>
+            </block>
+            <view class="weui-flex" style="padding-top:10px;">
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/kan.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_heat}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/xiao.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_laud}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button bindtap="{{li.is_buy==0?'home_pl':''}}" data-id="{{li.id}}" data-key="{{li_index}}" data-wey="{{new_index}}" hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/info_pl.png" style="width: 24px; height: 24px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_repount}}</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+    <view style="width:100%;height:3px;background-color:#F7F7FA;"></view>
+</view>
+<view wx:if="{{current=='tab2'}}" wx:for="{{new_list}}" wx:for-index="new_index" wx:key="n_key">
+    <view style="margin:20px;float:left;">
+        <view style="font-size:18px;width:37px;text-align:center;">
+      {{item.day}}
+    </view>
+        <view style="font-size:12px;width:40px;text-align:center;">
+      {{item.month}}
+    </view>
+    </view>
+    <view style="{{li_index!=0?'padding-left:82px;':''}}border-bottom:1px solid #F6F8F8;" wx:for="{{item.list}}" wx:for-index="li_index" wx:for-item="li" wx:key="l_key">
+        <view style="margin:24px 20px;float:left;width:230px;">
+            <view style="font-size:12px;color:#9D9D9D">
+        {{li.realm_name}}
+      </view>
+            <navigator hoverClass="none" url="" wx:if="{{li.study_type==0}}">
+                <view class="text_num" style="font-size:15px;">
+          {{li.study_title==''?li.study_content:li.study_title}}
+        </view>
+                <view style="overflow:hidden;" wx:if="{{li.image_part}}">
+                    <view style="width:{{li.image_length}}%;float:left;text-align:center;padding-left:5px;" wx:for="{{li.image_part}}" wx:for-index="img_index" wx:for-item="img" wx:key="img_list">
+                        <image bindtap="previewImage" lazyLoad="true" mode="aspectFill" src="{{img}}" style="width:100%;height:140px;border-radius:10px;" wx:if="{{img_index==0||img_index==1||img_index==2}}"></image>
+                    </view>
+                </view>
+            </navigator>
+            <navigator hoverClass="none" url="" wx:if="{{li.study_type==1}}">
+                <view class="text_num" style="font-size:15px;">
+          {{li.study_title==''?li.study_content:li.study_title}}
+        </view>
+                <view class="weui-cell" style="padding:0px;">
+                    <view style="background-image: linear-gradient(to right, #434343 0%, black 100%);color:#fff;height:40px;border-radius:25px;width:75%;">
+                        <image mode="aspectFill" src="../../../style/icon/home_yuyim.png" style="position:absolute;top:20%;left:3%;width:50rpx;height:50rpx;float:left;"></image>
+                        <view style="float:right;font-size:14px;margin-top:10px;margin-right:15px;">{{li.study_voice_time==0?1:li.study_voice_time}}"</view>
+                    </view>
+                </view>
+            </navigator>
+            <navigator hoverClass="none" url="" wx:if="{{li.study_type==2}}">
+                <view class="text_num" style="font-size:15px;">
+          {{li.study_title==''?li.study_content:li.study_title}}
+        </view>
+                <view class="weui-cell" style="{{li.image_part.length==null?'height:130px;':''}}overflow:hidden;margin:0 auto;">
+                    <image src="../../../style/icon/home_bf.png" style="width:35px;height:35px;position:absolute;left:44%;"></image>
+                    <image mode="aspectFill" src="{{li.image_part[0]}}" style="height:140px;margin:0 auto;border-radius:10px;" wx:if="{{li.image_part.length>0}}"></image>
+                    <image mode="aspectFill" src="../../../style/icon/a84.jpg" style="height:140px;margin:0 auto;border-radius:10px;" wx:if="{{li.image_part.length==null}}"></image>
+                </view>
+            </navigator>
+            <view class="weui-flex" style="padding-top:10px;">
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/kan.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_heat}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/xiao.png" style="width: 22px; height: 22px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_laud}}</text>
+                    </button>
+                </view>
+                <view class="weui-flex__item">
+                    <button bindtap="" data-id="{{li.id}}" data-key="{{li_index}}" data-wey="{{new_index}}" hoverClass="none">
+                        <image mode="widthFix" src="../../../style/icon/info_pl.png" style="width: 24px; height: 24px;vertical-align:middle;"></image>
+                        <text class="index_nav_name" style="color:#999999;font-size:13px;margin-left:15rpx;vertical-align:middle;">{{li.study_repount}}</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+    <view style="width:100%;height:3px;background-color:#F7F7FA;"></view>
+</view>
+<i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{my_di}}"></i-load-more>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{del_mod}}"></view>
+<view class="modal-dialog" wx:if="{{del_mod}}">
+    <view class="modal-title">删除确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:16px;">
+      确定要删除吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="del_do" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<image bindtap="get_liwu" src="../../../style/icon/ic_liveroom_gift_list.png" style="position:fixed;width:52px;height:52px;bottom:18%;right:10px;" wx:if="{{id!=uid}}"></image>
+<view animation="{{animationDataLi}}" id="liwu" style="width:100%;height:49.5%;background-color:#ffffff;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;box-shadow: 0px 0px 10px 0px #000" wx:if="{{liwu}}">
+    <view style="z-index:999999;font-size:14px;box-sizing: border-box;background:rgba(0, 0, 0, 0.7);position:absolute;top:36%;left:37%;color:#fff;text-align:center;padding: 10px 18px;border-radius:2px;line-height:1.5em;" wx:if="{{li_if}}">{{li_msg}}</view>
+    <view style="height:90rpx;margin-top:12px;">
+        <view style="float:left;width:43%;">
+            <i-tabs bindchange="handleChange" color="#{{sex==1||sex==0?'2E77ED':'f759ab'}}" current="{{current}}" iClass="not_pos">
+                <i-tab key="tab1" title="礼物"></i-tab>
+            </i-tabs>
+        </view>
+        <image bindtap="colse_li" src="../../../style/icon/cuo.png" style="margin-top:15rpx;margin-right:20rpx;width:50rpx;height:50rpx;float:right;"></image>
+    </view>
+    <view style="margin-top:10px;" wx:if="{{current=='tab1'}}">
+        <scroll-view scrollX="true" style="white-space: nowrap;width: 100%;display: flex;">
+            <view bindtap="liwu_index" class="liwu_col {{li_index==dataListindex?'liwu_border':''}}" data-id="{{item.id}}" data-k="{{dataListindex}}" wx:for="{{li_list}}" wx:for-index="dataListindex" wx:key="{{index}}">
+                <image src="{{item.tr_icon}}" style="width:50px;height:50px;"></image>
+                <view style="font-size:14px;">{{item.tr_name}}</view>
+                <view style="font-size:12px;color:#666666;">{{item.tr_conch}}{{design.currency}}</view>
+            </view>
+        </scroll-view>
+        <view style="padding: 16px">
+            <view style="font-size:14px;color:#A7A7A7;float:left;">{{design.currency}}
+        <text style="color:#000000;">{{li_sum}}</text>
+            </view>
+            <view style="clear:both;height:0"></view>
+            <navigator hoverClass="none" url="/yl_welore/pages/packageC/user_details/index">
+                <view style="font-size:14px;color:#A7A7A7;float:left;margin-top:10px;">我的{{design.currency}}
+          <image mode="widthFix" src="../../../style/icon/jinbi.png" style="width:20px;height:20px;vertical-align:middle;"></image>
+                    <text style="color:#000000;vertical-align:middle;">{{user_liwu.conch}}</text>
+                    <image mode="widthFix" src="../../../style/icon/chongzhi.png" style="width:40px;vertical-align:middle;margin-left:10px;"></image>
+                </view>
+            </navigator>
+            <i-input-number bindchange="handleChange1" iClass="{{sex==1||sex==0?'input_number_blue':'input_number_red'}}" max="99" min="1" value="{{li_number}}"></i-input-number>
+        </view>
+        <view style="clear:both;height:0"></view>
+        <button bindtap="reward" class="wx_liwu" size="default" style="color: #{{sex==1||sex==0?'2E77ED':'f759ab'}};border-radius: 2rem;border: 1px #{{sex==1||sex==0?'2E77ED':'f759ab'}} solid;box-shadow: -3px 5px 10rpx 5rpx #{{sex==1||sex==0?'2E77ED':'f759ab'}};">立即打赏</button>
+    </view>
+</view>
+<i-toast id="toast"></i-toast>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{home_pl_check}}"></view>
+<view class="modal-dialog" wx:if="{{home_pl_check}}">
+    <view class="modal-title" style="font-size:15px;">评论</view>
+    <view class="modal-content">
+        <textarea bindinput="home_pl_cai" placeholder="欢迎吐槽..." style="height:5em;width:90%;padding:10px;font-size:13px;"></textarea>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel" style="font-size:15px;">取消</view>
+        <view bindtap="do_user_pl" class="btn-confirm" data-status="confirm" style="font-size:15px;">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{purchase_paper_mod}}"></view>
+<view class="modal-dialog" style="border-radius:5px;" wx:if="{{purchase_paper_mod}}">
+    <view class="modal-title" style="border-bottom:1px solid #EEEDEC;font-size:16px;padding-top:15px;padding-bottom:10px;font-weight:700;">
+        <image bindtap="hideModal" src="../../../style/icon/cuo.png" style="width:20px;position:absolute;height:20px;right:13px;top:15px;"></image>
+    支付
+  </view>
+    <view class="modal-content" style="border-bottom:1px solid #EEEDEC">
+        <view style="font-size:14px;text-align:center;">支付付费贴</view>
+        <view style="font-size:30px;text-align:center;font-weight:700;">{{money}}</view>
+    </view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageC/user_details/index">
+        <view class="modal-content" style="position:relative;">
+            <image src="../../../style/icon/jinbi.png" style="width:25px;height:25px;vertical-align:middle;"></image>
+            <text style="font-size:14px;margin-left:10px;color:#717470;">我的{{design.confer}}余额：{{user_info.fraction}}</text>
+            <image class="xwcms" src="../../../style/icon/fanhui.png" style="width:20px;height:20px;position:absolute;opacity:0.4;right:10px;top:14px;"></image>
+        </view>
+    </navigator>
+    <view class="modal-footer" style="height:65px;">
+        <view bindtap="do_paper_money" class="btn-confirm" data-status="confirm" style="font-size:15px;width:90%;margin:10px auto;height:44px;background-color:#56BD69;color:#fff;border-radius:3px;">确定</view>
+    </view>
+</view>

@@ -1,0 +1,154 @@
+<view class="nav-wrap" style="height: {{height*2+20}}px;">
+    <view class="nav-title" style="line-height: {{height*2+44}}px;">{{nvabarData.title}}</view>
+    <view style="display: flex; justify-content: space-around;flex-direction: column;height:100%;">
+        <view class="nav-capsule">
+            <view bindtap="_navback">
+                <image class="back-pre" mode="aspectFill" src="../../../style/icon/back.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="width:90%;min-height:140px;border-radius:8px;margin:10px auto;color:#ffffff;background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);">
+    <view style="font-size:14px;margin-left:20px;padding-top:10px;float:left;">余额：</view>
+    <navigator hoverClass="none" url="/yl_welore/pages/packageC/withdrawal/index" wx:if="{{setting.open_withdrawals==1}}">
+        <view style="margin-top:10px;line-height:22px;float:right;width:50px;border-radius:50px;text-align:center;color:#ffffff;font-size:12px;margin-right:10px;background-image: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);" wx:if="{{copyright.recharge_arbor==1}}">
+      提现
+    </view>
+    </navigator>
+    <view style="clear:both;height:0"></view>
+    <view style="width:100%;height:50px;margin-top:15px;">
+        <view style="font-size:14px;float:left;margin-left:20px;">
+            <text style="font-size:28px;">{{user_info.conch}}</text>{{design.currency}}</view>
+        <view bindtap="get_pay" style="margin-top:5px;line-height:37px;float:right;width:90px;border-radius:50px;text-align:center;color:#f794a4;font-size:12px;margin-right:20px;background-color:#fff;" wx:if="{{copyright.recharge_arbor==1}}">
+      {{design.currency}}充值
+    </view>
+        <navigator hoverClass="none" url="/yl_welore/pages/packageC/withdrawal/index" wx:if="{{setting.open_withdrawals==1}}">
+            <view style="margin-top:5px;line-height:37px;float:right;width:90px;border-radius:50px;text-align:center;color:#f794a4;font-size:12px;margin-right:20px;background-color:#fff;" wx:if="{{copyright.recharge_arbor==0}}">
+        {{design.currency}}提现
+      </view>
+        </navigator>
+    </view>
+    <view style="float:left;font-size:12px;margin-left:17px;margin-top:15px;">
+        <i-icon type="prompt"></i-icon>{{design.currency}}可以购买会员和送礼
+    <view bindtap="dh_confer" style="margin-left:10px;margin-top:-1px;line-height:20px;float:right;width:58px;border-radius:50px;text-align:center;color:#f794a4;font-size:12px;margin-right:20px;background-color:#fff;">
+      兑换{{design.confer}}
+    </view>
+    </view>
+    <view style="clear:both;height:0"></view>
+</view>
+<view style="width:90%;height:140px;border-radius:8px;margin:10px auto;color:#ffffff;background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);">
+    <view style="font-size:14px;margin-left:20px;padding-top:10px;">余额：</view>
+    <view style="width:100%;height:50px;margin-top:15px;">
+        <view style="font-size:14px;float:left;margin-left:20px;">
+            <text style="font-size:28px;">{{user_info.fraction}}</text>{{design.confer}}</view>
+        <view bindtap="yes_mod" style="margin-top:5px;line-height:37px;float:right;width:90px;border-radius:50px;text-align:center;color:#C5C1FF;font-size:12px;margin-left:10px;margin-right:20px;background-color:#fff;">
+      兑换{{design.currency}}
+    </view>
+    </view>
+    <view style="font-size:12px;margin-left:17px;margin-top:15px;">
+        <i-icon type="prompt"></i-icon>{{design.confer}}可以兑换{{design.currency}}(当前可兑换{{dd_fraction}})</view>
+    <view style="clear:both;height:0"></view>
+</view>
+<view style="clear:both;height:0"></view>
+<i-tabs bindchange="handleChange" color="#000000" current="{{current}}" iClass="yes_pos">
+    <i-tab key="tab1" title="{{design.currency}}明细"></i-tab>
+    <i-tab key="tab2" title="{{design.confer}}明细"></i-tab>
+</i-tabs>
+<view style="margin:0px 17px;width:87%;height:auto;border-radius:10px;padding:10px;font-size:14px;">
+    <view style="margin:20px 0px;" wx:for="{{amount_list}}" wx:key="a_list">
+        <view style="float:left">
+            <view class="">{{item.solution}}</view>
+            <view style="color:#999999;font-size:13px;">{{item.ruins_time}}</view>
+        </view>
+        <view style="float:right;line-height:50px;">
+            <view style="font-size:18px;color:#54B835" wx:if="{{item.finance>0}}">
+        +{{item.finance}}
+      </view>
+            <view style="font-size:18px;color:#000000" wx:if="{{item.finance<0}}">
+        {{item.finance}}
+      </view>
+            <view style="font-size:18px;color:#000000" wx:if="{{item.finance==0}}">
+        -{{item.finance}}
+      </view>
+        </view>
+        <view style="clear:both;height:0"></view>
+    </view>
+    <i-load-more loading="{{false}}" tip="没有更多了" wx:if="{{di_msg}}"></i-load-more>
+</view>
+<i-toast id="toast"></i-toast>
+<view animation="{{animationPay}}" style="width:100%;height:230px;background-color:#f9f9f9;position:fixed;bottom:0px;border-top-left-radius:20rpx;border-top-right-radius:20rpx;z-index:10000;" wx:if="{{pay}}">
+    <view style="text-align:center;">
+        <view style="margin-top:10px;float:left;margin-left:42%;;float:left;">充值{{design.currency}}</view>
+        <image bindtap="no_pay" src="../../../style/icon/cuo.png" style="width:30px;height:30px;float:right;margin-top:6px;margin-right:10px;"></image>
+    </view>
+    <view style="clear:both;height:0"></view>
+    <scroll-view scrollX="true" style="white-space: nowrap;width: 100%;">
+        <view bindtap="get_pay_money" class="liwu_col {{money_index==m_index?'select':''}}" data-index="{{m_index}}" style="height:5.5em;border-radius:0;" wx:for="{{pay_money}}" wx:for-index="m_index" wx:key="m_key">
+            <view style="font-size:14px;margin-top:10px;font-weight:600;" wx:if="{{m_index!=6}}">{{item.money}}{{design.currency}}</view>
+            <view style="font-size:14px;margin-top:10px;font-weight:600;" wx:if="{{m_index==6}}">自定义</view>
+            <view style="font-size:30px;color:#F3CB5A;" wx:if="{{m_index!=6}}">
+                <text style="font-size:14px;">￥</text>
+                <text style="">{{item.money}}</text>
+            </view>
+            <view style="font-size:30px;color:#F3CB5A;padding-left:10px;margin-top:10px;" wx:if="{{m_index==6}}">
+                <text style="font-size:14px;float:left;">￥</text>
+                <input bindinput="set_this_money" placeholder="金额" style="width:70%;font-size:30px;color:#F3CB5A;text-align:left;" type="digit" value="{{item.money}}"></input>
+            </view>
+        </view>
+    </scroll-view>
+    <button bindtap="pay_submit" style="background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);color:#fff;border-radius: 2rem;box-shadow:-3px 5px  10rpx 5rpx;width:150px;margin-top:15px;">充值</button>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{yes_mod}}"></view>
+<view class="modal-dialog" wx:if="{{yes_mod}}">
+    <view class="modal-title">兑换确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#999999;font-size:13px;">
+      确定要兑换{{design.currency}}吗？
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="get_ji_bei" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{dh_confer_t}}"></view>
+<view class="modal-dialog" style="border-radius:5px;" wx:if="{{dh_confer_t}}">
+    <view class="modal-title">兑换确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#000;font-size:13px;">
+            <input bindinput="get_num" style="border:1px solid;height:40px;font-size:20px;border-radius:6px;" type="digit" value="{{bei_money}}"></input>
+        </view>
+        <view style="text-align:center;font-size:14px;">
+      将获得：
+      <text style="font-size:30px;">{{ji_money}}</text> {{design.confer}}
+    </view>
+        <view style="text-align:center;font-size:12px;" wx:if="{{copyright.conch_convert!=0}}">
+            <i-icon size="15" type="prompt"></i-icon>今日剩余兑换次数：{{bei_ji}}
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="add_bei_ji" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<view catchtouchmove="preventTouchMove" class="modal-mask" wx:if="{{dh_confer_j}}"></view>
+<view class="modal-dialog" style="border-radius:5px;" wx:if="{{dh_confer_j}}">
+    <view class="modal-title">兑换确认</view>
+    <view class="modal-content">
+        <view class="weui-cell__bd" style="text-align:center;color:#000;font-size:13px;">
+            <input bindinput="get_num_b" style="border:1px solid;height:40px;font-size:20px;border-radius:6px;" type="digit" value="{{bei_money_b}}"></input>
+        </view>
+        <view style="text-align:center;font-size:14px;">
+      将获得：
+      <text style="font-size:30px;">{{ji_money_b}}</text> {{design.currency}}
+    </view>
+        <view style="text-align:center;font-size:12px;" wx:if="{{copyright.fraction_convert!=0}}">
+            <i-icon size="15" type="prompt"></i-icon>今日剩余兑换次数：{{bei_ji_b}}
+    </view>
+    </view>
+    <view class="modal-footer">
+        <view bindtap="hideModal" class="btn-cancel" data-status="cancel">取消</view>
+        <view bindtap="get_ji_bei" class="btn-confirm" data-status="confirm">确定</view>
+    </view>
+</view>
+<wxs module="filters" src="tofix.wxs" />
